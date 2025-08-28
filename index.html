@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicios de Números</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .container {
+            max-width: 490px; /* Ancho ajustado al 70% de 700px */
+            margin: 40px auto;
+            padding: 24px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .exercise-section {
+            background-color: #e2e8f0;
+            padding: 24px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+        }
+        .correct {
+            color: #16a34a;
+        }
+        .incorrect {
+            color: #dc2626;
+        }
+        .justification-container {
+            padding: 8px;
+            border-radius: 4px;
+            margin-top: 8px;
+            transition: background-color 0.3s ease;
+        }
+        /* Clase para el color de fondo de justificación */
+        .show-justification {
+            background-color: #f3f4f6;
+        }
+        /* Estilos para el texto Correcto/Incorrecto dentro de la justificación */
+        .justification-container .status-text.correct {
+            color: #16a34a;
+        }
+        .justification-container .status-text.incorrect {
+            color: #dc2626;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center flex-col">
+    <!-- School logo centered vertically -->
+    <div class="my-8 flex items-center justify-center">
+        <img src="https://i.imgur.com/AAiuz3j.png" alt="School Logo" class="mx-auto" style="max-height: 100px;">
+    </div>
+    
+    <!-- Title moved outside the main container to be placed between the logo and the content box -->
+    <h1 class="text-3xl font-bold text-center text-blue-500 mb-6">Ejercicios de Números (cardinales y ordinales)</h1>
+
+    <div class="container">
+        
+        <!-- Sección 1: Números Cardinales (Escribir la respuesta) -->
+        <div id="section-1" class="exercise-section">
+            <h2 class="text-xl font-semibold text-gray-700 mb-4">Sección 1: Números Cardinales</h2>
+            <p class="text-gray-600 mb-4">Escribe el número en letras.</p>
+            
+            <form id="cardinal-form" class="space-y-4">
+                <div class="flex flex-col space-y-2">
+                    <p class="text-gray-700">1. 8: <input type="text" id="c1" class="p-2 border rounded-md w-64"> <span id="c1-result" class="ml-2 font-bold"></span></p>
+                    <p class="text-gray-600 text-sm justification-container" id="c1-justification"></p>
+                </div>
+                <div class="flex flex-col space-y-2">
+                    <p class="text-gray-700">2. 55: <input type="text" id="c2" class="p-2 border rounded-md w-64"> <span id="c2-result" class="ml-2 font-bold"></span></p>
+                    <p class="text-gray-600 text-sm justification-container" id="c2-justification"></p>
+                </div>
+                <div class="flex flex-col space-y-2">
+                    <p class="text-gray-700">3. 101: <input type="text" id="c3" class="p-2 border rounded-md w-64"> <span id="c3-result" class="ml-2 font-bold"></span></p>
+                    <p class="text-gray-600 text-sm justification-container" id="c3-justification"></p>
+                </div>
+                <button type="button" onclick="checkCardinalAnswers()" class="mt-4 w-full bg-blue-500 text-white font-semibold py-2 px-4 rounded-md shadow-md hover:bg-blue-600 transition duration-300">Verificar Respuestas</button>
+            </form>
+            <div id="cardinal-results" class="mt-4 text-center text-lg font-semibold"></div>
+        </div>
+
+        <!-- Sección 2: Números Ordinales (Selección Múltiple) -->
+        <div id="section-2" class="exercise-section">
+            <h2 class="text-xl font-semibold text-gray-700 mb-4">Sección 2: Números Ordinales</h2>
+            <p class="text-gray-600 mb-4">Selecciona la forma correcta.</p>
+            
+            <form id="ordinal-form" class="space-y-4">
+                <div class="flex flex-col space-y-2">
+                    <p class="text-gray-700">1. She is in <select id="o1" class="p-2 border rounded-md">
+                        <option value="">...</option>
+                        <option value="third">third</option>
+                        <option value="three">three</option>
+                    </select> place. <span id="o1-result" class="ml-2 font-bold"></span></p>
+                    <p class="text-gray-600 text-sm justification-container" id="o1-justification"></p>
+                </div>
+                <div class="flex flex-col space-y-2">
+                    <p class="text-gray-700">2. My birthday is on the <select id="o2" class="p-2 border rounded-md">
+                        <option value="">...</option>
+                        <option value="eleventh">eleventh</option>
+                        <option value="eleven">eleven</option>
+                    </select> of May. <span id="o2-result" class="ml-2 font-bold"></span></p>
+                    <p class="text-gray-600 text-sm justification-container" id="o2-justification"></p>
+                </div>
+                <div class="flex flex-col space-y-2">
+                    <p class="text-gray-700">3. My daughter is on her <select id="o3" class="p-2 border rounded-md">
+                        <option value="">...</option>
+                        <option value="thirty-third">thirty-third</option>
+                        <option value="thirty-three">thirty-three</option>
+                    </select> birthday. <span id="o3-result" class="ml-2 font-bold"></span></p>
+                    <p class="text-gray-600 text-sm justification-container" id="o3-justification"></p>
+                </div>
+
+                <hr class="my-4 border-t-2 border-gray-400">
+
+                <!-- Nuevo ejercicio: escribir en números -->
+                <p class="text-gray-600 mb-4 mt-6">Escribe los números ordinales de los ejercicios 1, 2 y 3 en su forma numérica (p. ej., "first" es "1st").</p>
+                <div class="flex flex-col space-y-2">
+                    <p class="text-gray-700">1. <input type="text" id="o1-num" class="p-2 border rounded-md w-32"> <span id="o1-num-result" class="ml-2 font-bold"></span></p>
+                    <p class="text-gray-600 text-sm justification-container" id="o1-num-justification"></p>
+                </div>
+                <div class="flex flex-col space-y-2">
+                    <p class="text-gray-700">2. <input type="text" id="o2-num" class="p-2 border rounded-md w-32"> <span id="o2-num-result" class="ml-2 font-bold"></span></p>
+                    <p class="text-gray-600 text-sm justification-container" id="o2-num-justification"></p>
+                </div>
+                <div class="flex flex-col space-y-2">
+                    <p class="text-gray-700">3. <input type="text" id="o3-num" class="p-2 border rounded-md w-32"> <span id="o3-num-result" class="ml-2 font-bold"></span></p>
+                    <p class="text-gray-600 text-sm justification-container" id="o3-num-justification"></p>
+                </div>
+
+                <button type="button" onclick="checkOrdinalAnswers()" class="mt-4 w-full bg-blue-500 text-white font-semibold py-2 px-4 rounded-md shadow-md hover:bg-blue-600 transition duration-300">Verificar Respuestas</button>
+            </form>
+            <div id="ordinal-results" class="mt-4 text-center text-lg font-semibold"></div>
+        </div>
+
+        <!-- Sección 3: Combinar Cardinal y Ordinal -->
+        <div id="section-3" class="exercise-section">
+            <h2 class="text-xl font-semibold text-gray-700 mb-4">Sección 3: Combinación</h2>
+            <p class="text-gray-600 mb-4">Escribe la palabra correcta para cada número.</p>
+            
+            <form id="combined-form" class="space-y-4">
+                <div class="flex flex-col space-y-2">
+                    <p class="text-gray-700">1. This is the 1st book. It has 92 pages.</p>
+                    <p class="text-gray-700">Respuesta: 
+                        <input type="text" id="o4" class="p-2 border rounded-md w-32">
+                        <span id="o4-result" class="ml-2 font-bold"></span>,
+                        <input type="text" id="c4" class="p-2 border rounded-md w-32">
+                        <span id="c4-result" class="ml-2 font-bold"></span>
+                    </p>
+                    <p class="text-gray-600 text-sm justification-container" id="q4-justification"></p>
+                </div>
+                <div class="flex flex-col space-y-2">
+                    <p class="text-gray-700">2. My apartment is on the 3rd floor. It has 6 windows.</p>
+                    <p class="text-gray-700">Respuesta: 
+                        <input type="text" id="o5" class="p-2 border rounded-md w-32">
+                        <span id="o5-result" class="ml-2 font-bold"></span>,
+                        <input type="text" id="c5" class="p-2 border rounded-md w-32">
+                        <span id="c5-result" class="ml-2 font-bold"></span>
+                    </p>
+                    <p class="text-gray-600 text-sm justification-container" id="q5-justification"></p>
+                </div>
+                <button type="button" onclick="checkCombinedAnswers()" class="mt-4 w-full bg-blue-500 text-white font-semibold py-2 px-4 rounded-md shadow-md hover:bg-blue-600 transition duration-300">Verificar Respuestas</button>
+            </form>
+            <div id="combined-results" class="mt-4 text-center text-lg font-semibold"></div>
+        </div>
+
+        <!-- Sección 4: Años y Números Grandes -->
+        <div id="section-4" class="exercise-section">
+            <h2 class="text-xl font-semibold text-gray-700 mb-4">Sección 4: Años y Números Grandes</h2>
+            <p class="text-gray-600 mb-4">Escribe la palabra correcta para cada número o año. Ahora también puedes escribir la cifra para la palabra.</p>
+            
+            <form id="years-form" class="space-y-4">
+                <div class="flex flex-col space-y-2">
+                    <p class="text-gray-700">1. The year 1999: <input type="text" id="y1" class="p-2 border rounded-md w-64"> <span id="y1-result" class="ml-2 font-bold"></span></p>
+                    <p class="text-gray-600 text-sm justification-container" id="y1-justification"></p>
+                </div>
+                <div class="flex flex-col space-y-2">
+                    <p class="text-gray-700">2. The year 2023: <input type="text" id="y2" class="p-2 border rounded-md w-64"> <span id="y2-result" class="ml-2 font-bold"></span></p>
+                    <p class="text-gray-600 text-sm justification-container" id="y2-justification"></p>
+                </div>
+                <div class="flex flex-col space-y-2">
+                    <p class="text-gray-700">3. 5,400: <input type="text" id="y3" class="p-2 border rounded-md w-64"> <span id="y3-result" class="ml-2 font-bold"></span></p>
+                    <p class="text-gray-600 text-sm justification-container" id="y3-justification"></p>
+                </div>
+                <div class="flex flex-col space-y-2">
+                    <p class="text-gray-700">4. three thousand seven hundred: <input type="text" id="y4" class="p-2 border rounded-md w-64"> <span id="y4-result" class="ml-2 font-bold"></span></p>
+                    <p class="text-gray-600 text-sm justification-container" id="y4-justification"></p>
+                </div>
+                <div class="flex flex-col space-y-2">
+                    <p class="text-gray-700">5. The year two thousand nine: <input type="text" id="y5" class="p-2 border rounded-md w-64"> <span id="y5-result" class="ml-2 font-bold"></span></p>
+                    <p class="text-gray-600 text-sm justification-container" id="y5-justification"></p>
+                </div>
+                <div class="flex flex-col space-y-2">
+                    <p class="text-gray-700">6. one million twelve: <input type="text" id="y6" class="p-2 border rounded-md w-64"> <span id="y6-result" class="ml-2 font-bold"></span></p>
+                    <p class="text-gray-600 text-sm justification-container" id="y6-justification"></p>
+                </div>
+                <button type="button" onclick="checkYearsAnswers()" class="mt-4 w-full bg-blue-500 text-white font-semibold py-2 px-4 rounded-md shadow-md hover:bg-blue-600 transition duration-300">Verificar Respuestas</button>
+            </form>
+            <div id="years-results" class="mt-4 text-center text-lg font-semibold"></div>
+        </div>
+
+        <!-- Nueva Sección: Reading -->
+        <div id="section-5" class="exercise-section">
+            <h2 class="text-xl font-semibold text-gray-700 mb-4">Sección 5: Lectura</h2>
+            <p class="text-gray-600 mb-4">Lee el siguiente texto. Luego, haz clic en el botón para ver los números escritos con palabras.</p>
+            
+            <div class="bg-gray-200 p-4 rounded-md mb-4">
+                <p id="reading-text-numbers" class="text-gray-800">
+                    My grandfather, Robert, was born in <b>1945</b>. He was the <b>2nd</b> of <b>5</b> children. He got his first job when he was <b>16</b> years old and worked for the same company for <b>40</b> years. During his career, he sold over <b>450,000</b> units. He retired in <b>2005</b>. He has <b>3</b> grandchildren and <b>1</b> great-grandchild. Every year, on his birthday, we celebrate with a big party. The last time we had a party was when he turned <b>80</b>. A video of the party went viral, and he received <b>1,348</b> birthday cards and over <b>25,000</b> messages online.
+                </p>
+            </div>
+            
+            <button type="button" onclick="showReadingText()" class="mt-4 w-full bg-blue-500 text-white font-semibold py-2 px-4 rounded-md shadow-md hover:bg-blue-600 transition duration-300">Ver Texto con Palabras</button>
+            
+            <div id="reading-text-words" class="bg-gray-200 p-4 rounded-md mt-4 hidden">
+                <p class="text-gray-800">
+                    My grandfather, Robert, was born in <b>nineteen forty-five</b>. He was the <b>second</b> of <b>five</b> children. He got his first job when he was <b>sixteen</b> years old and worked for the same company for <b>forty</b> years. During his career, he sold over <b>four hundred fifty thousand</b> units. He retired in <b>two thousand five</b>. He has <b>three</b> grandchildren and <b>one</b> great-grandchild. Every year, on his birthday, we celebrate with a big party. The last time we had a party was when he turned <b>80</b>. A video of the party went viral, and he received <b>1,348</b> birthday cards and over <b>25,000</b> messages online.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data for correct answers and their justifications
+        const answers = {
+            c1: { correct: "eight", justification: "El número 8 en inglés se escribe 'eight'." },
+            c2: { correct: "fifty-five", justification: "El número 55 se escribe 'fifty-five'." },
+            c3: { correct: ["one hundred one", "one hundred and one"], justification: "El número 101 se escribe 'one hundred one' o 'one hundred and one'." },
+            o1: { correct: "third", justification: "Para indicar el tercer lugar, se usa el número ordinal 'third'.", translation: "Ella está en tercer lugar." },
+            o2: { correct: "eleventh", justification: "Para referirse al día de un mes, se usa el número ordinal 'eleventh' (undécimo).", translation: "Mi cumpleaños es el undécimo de mayo." },
+            o3: { correct: "thirty-third", justification: "El número ordinal para 33 es 'thirty-third'.", translation: "Mi hija está en su trigésimo tercer cumpleaños." },
+            o4: { correct: "first", justification: "El número ordinal para 1 es 'first'.", translation: "Este es el primer libro. Tiene 92 páginas." },
+            c4: { correct: "ninety-two", justification: "El número cardinal para 92 es 'ninety-two'." },
+            o5: { correct: "third", justification: "El número ordinal para 3 es 'third'." },
+            c5: { correct: "six", justification: "El número cardinal para 6 es 'six'." },
+            y1: { correct: "nineteen ninety-nine", justification: "Los años se leen en grupos de dos: 'nineteen' y 'ninety-nine'." },
+            y2: { correct: ["two thousand twenty-three", "twenty twenty-three"], justification: "A partir del año 2000, los años se pueden leer como 'two thousand twenty-three' o 'twenty twenty-three'." },
+            y3: { correct: "five thousand four hundred", justification: "Para números grandes, se lee la cantidad de miles y luego las centenas. '5,400' es 'five thousand four hundred'." },
+            y4: { correct: "3700", justification: "El número 'three thousand seven hundred' es '3700'." },
+            y5: { correct: ["two thousand nine", "two thousand and nine"], justification: "El año 'two thousand nine' se puede escribir como '2009'. También se acepta la forma 'two thousand and nine'." },
+            y6: { correct: ["1000012", "1,000,012"], justification: "Un millón doce se escribe '1,000,012' o '1000012'." },
+            
+            // New answers for the numerical ordinal questions
+            o1_num: { correct: "3rd", justification: "La forma numérica para 'third' es '3rd'." },
+            o2_num: { correct: "11th", justification: "La forma numérica para 'eleventh' es '11th'." },
+            o3_num: { correct: "33rd", justification: "La forma numérica para 'thirty-third' es '33rd'." }
+        };
+
+        // Function to check cardinal number answers
+        function checkCardinalAnswers() {
+            let correctCount = 0;
+            let totalQuestions = 0;
+            const resultDiv = document.getElementById('cardinal-results');
+
+            for (let i = 1; i <= 3; i++) {
+                totalQuestions++;
+                const key = 'c' + i;
+                const inputValue = document.getElementById(key).value.trim().toLowerCase();
+                const resultSpan = document.getElementById(key + '-result');
+                const justificationSpan = document.getElementById(key + '-justification');
+                
+                // Clear previous state
+                resultSpan.textContent = '';
+                justificationSpan.innerHTML = '';
+                justificationSpan.classList.remove('show-justification', 'correct', 'incorrect');
+                
+                let isCorrect = false;
+                if (Array.isArray(answers[key].correct)) { // Check for multiple possible answers
+                    isCorrect = answers[key].correct.some(correctAnswer => {
+                        return correctAnswer.toLowerCase().trim() === inputValue;
+                    });
+                } else {
+                    isCorrect = inputValue === answers[key].correct;
+                }
+                
+                let justificationContent;
+
+                if (isCorrect) {
+                    correctCount++;
+                    resultSpan.textContent = '✅';
+                    justificationContent = `<b class="status-text correct">Correcto.</b> ${answers[key].justification}`;
+                } else {
+                    resultSpan.textContent = '❌';
+                    if (Array.isArray(answers[key].correct)) {
+                        justificationContent = `<b class="status-text incorrect">Incorrecto.</b> Las respuestas correctas son "${answers[key].correct.join('" o "')}". ${answers[key].justification}`;
+                    } else {
+                        justificationContent = `<b class="status-text incorrect">Incorrecto.</b> La respuesta correcta es "${answers[key].correct}". ${answers[key].justification}`;
+                    }
+                }
+                
+                justificationSpan.innerHTML = justificationContent;
+                justificationSpan.classList.add('show-justification');
+            }
+            
+            resultDiv.textContent = `Correctas: ${correctCount} de ${totalQuestions}`;
+            resultDiv.classList.add(correctCount === totalQuestions ? 'correct' : 'incorrect');
+            resultDiv.classList.remove(correctCount === totalQuestions ? 'incorrect' : 'correct');
+        }
+
+        // Function to check ordinal number answers
+        function checkOrdinalAnswers() {
+            let correctCount = 0;
+            let totalQuestions = 0;
+            const resultDiv = document.getElementById('ordinal-results');
+
+            // Define all questions in a single, clear array to avoid errors
+            const questions = [
+                { id: 'o1', type: 'select', correct: answers.o1.correct, justification: answers.o1.justification, translation: answers.o1.translation },
+                { id: 'o2', type: 'select', correct: answers.o2.correct, justification: answers.o2.justification, translation: answers.o2.translation },
+                { id: 'o3', type: 'select', correct: answers.o3.correct, justification: answers.o3.justification, translation: answers.o3.translation },
+                { id: 'o1-num', type: 'input', correct: answers.o1_num.correct, justification: answers.o1_num.justification },
+                { id: 'o2-num', type: 'input', correct: answers.o2_num.correct, justification: answers.o2_num.justification },
+                { id: 'o3-num', type: 'input', correct: answers.o3_num.correct, justification: answers.o3_num.justification },
+            ];
+
+            // Loop through all questions and check the answers
+            questions.forEach(q => {
+                totalQuestions++;
+                const element = document.getElementById(q.id);
+                const resultSpan = document.getElementById(q.id + '-result');
+                const justificationSpan = document.getElementById(q.id + '-justification');
+                
+                // Clear previous state
+                resultSpan.textContent = '';
+                justificationSpan.innerHTML = '';
+                justificationSpan.classList.remove('show-justification');
+
+                let value;
+                if (q.type === 'select') {
+                    value = element.value;
+                } else if (q.type === 'input') {
+                    value = element.value.trim().toLowerCase();
+                }
+
+                const isCorrect = (value === q.correct);
+                let justificationContent;
+
+                if (isCorrect) {
+                    correctCount++;
+                    resultSpan.textContent = '✅';
+                    justificationContent = `<b class="status-text correct">Correcto.</b> ${q.justification}`;
+                    if (q.translation) {
+                        justificationContent += `<br><i>Traducción: ${q.translation}</i>`;
+                    }
+                } else {
+                    resultSpan.textContent = '❌';
+                    justificationContent = `<b class="status-text incorrect">Incorrecto.</b> La respuesta correcta es "${q.correct}". ${q.justification}`;
+                    if (q.translation) {
+                        justificationContent += `<br><i>Traducción: ${q.translation}</i>`;
+                    }
+                }
+                
+                justificationSpan.innerHTML = justificationContent;
+                justificationSpan.classList.add('show-justification');
+            });
+            
+            resultDiv.textContent = `Correctas: ${correctCount} de ${totalQuestions}`;
+            resultDiv.classList.add(correctCount === totalQuestions ? 'correct' : 'incorrect');
+            resultDiv.classList.remove(correctCount === totalQuestions ? 'incorrect' : 'correct');
+        }
+
+        // Function to check combined answers
+        function checkCombinedAnswers() {
+            let correctCount = 0;
+            let totalQuestions = 0;
+            const resultDiv = document.getElementById('combined-results');
+            
+            // --- Check first question (1st & 92) ---
+            totalQuestions++;
+            const o4Value = document.getElementById('o4').value.trim().toLowerCase();
+            const c4Value = document.getElementById('c4').value.trim().toLowerCase();
+            const o4Result = document.getElementById('o4-result');
+            const c4Result = document.getElementById('c4-result');
+            const q4Justification = document.getElementById('q4-justification');
+            
+            o4Result.textContent = '';
+            c4Result.textContent = '';
+            q4Justification.innerHTML = '';
+            q4Justification.classList.remove('show-justification');
+            
+            let isCorrectO4 = (o4Value === answers.o4.correct);
+            let isCorrectC4 = (c4Value === answers.c4.correct);
+
+            if (isCorrectO4) {
+                o4Result.textContent = '✅';
+            } else {
+                o4Result.textContent = '❌';
+            }
+
+            if (isCorrectC4) {
+                c4Result.textContent = '✅';
+            } else {
+                c4Result.textContent = '❌';
+            }
+
+            if (isCorrectO4 && isCorrectC4) {
+                correctCount++;
+                q4Justification.innerHTML = `<b class="status-text correct">Correcto.</b> ¡Ambas respuestas son correctas! ${answers.o4.justification}<br><i>Traducción: ${answers.o4.translation}</i>`;
+            } else {
+                q4Justification.innerHTML = `<b class="status-text incorrect">Incorrecto.</b> Ordinal: "${answers.o4.correct}", Cardinal: "${answers.c4.correct}". ${answers.o4.justification}<br><i>Traducción: ${answers.o4.translation}</i>`;
+            }
+            q4Justification.classList.add('show-justification');
+
+            // --- Check second question (3rd & 6) ---
+            totalQuestions++;
+            const o5Value = document.getElementById('o5').value.trim().toLowerCase();
+            const c5Value = document.getElementById('c5').value.trim().toLowerCase();
+            const o5Result = document.getElementById('o5-result');
+            const c5Result = document.getElementById('c5-result');
+            const q5Justification = document.getElementById('q5-justification');
+            
+            o5Result.textContent = '';
+            c5Result.textContent = '';
+            q5Justification.innerHTML = '';
+            q5Justification.classList.remove('show-justification');
+            
+            let isCorrectO5 = (o5Value === answers.o5.correct);
+            let isCorrectC5 = (c5Value === answers.c5.correct);
+
+            if (isCorrectO5) {
+                o5Result.textContent = '✅';
+            } else {
+                o5Result.textContent = '❌';
+            }
+
+            if (isCorrectC5) {
+                c5Result.textContent = '✅';
+            } else {
+                c5Result.textContent = '❌';
+            }
+
+            if (isCorrectO5 && isCorrectC5) {
+                correctCount++;
+                q5Justification.innerHTML = `<b class="status-text correct">Correcto.</b> ¡Ambas respuestas son correctas! ${answers.o5.justification}<br><i>Traducción: ${answers.o5.translation}</i>`;
+            } else {
+                q5Justification.innerHTML = `<b class="status-text incorrect">Incorrecto.</b> Ordinal: "${answers.o5.correct}", Cardinal: "${answers.c5.correct}". ${answers.o5.justification}<br><i>Traducción: ${answers.o5.translation}</i>`;
+            }
+            q5Justification.classList.add('show-justification');
+
+            resultDiv.textContent = `Correctas: ${correctCount} de ${totalQuestions}`;
+            resultDiv.classList.add(correctCount === totalQuestions ? 'correct' : 'incorrect');
+            resultDiv.classList.remove(correctCount === totalQuestions ? 'incorrect' : 'correct');
+        }
+
+        // Function to check years and large number answers
+        function checkYearsAnswers() {
+            let correctCount = 0;
+            let totalQuestions = 0;
+            const resultDiv = document.getElementById('years-results');
+
+            const yearsQuestions = ['y1', 'y2', 'y3', 'y4', 'y5', 'y6'];
+            
+            for (const key of yearsQuestions) {
+                totalQuestions++;
+                const inputValue = document.getElementById(key).value.trim().toLowerCase();
+                const resultSpan = document.getElementById(key + '-result');
+                const justificationSpan = document.getElementById(key + '-justification');
+                
+                // Clear previous state
+                resultSpan.textContent = '';
+                justificationSpan.innerHTML = '';
+                justificationSpan.classList.remove('show-justification', 'correct', 'incorrect');
+                
+                // Handle numbers written as digits, removing commas for comparison
+                const cleanedInputValue = inputValue.replace(/,/g, '');
+                
+                let isCorrect = false;
+                if (Array.isArray(answers[key].correct)) { // Check for multiple possible answers
+                    isCorrect = answers[key].correct.some(correctAnswer => {
+                        const cleanedCorrectAnswer = correctAnswer.replace(/,/g, '');
+                        return cleanedCorrectAnswer.toLowerCase().trim() === cleanedInputValue;
+                    });
+                } else {
+                    const cleanedCorrectAnswer = answers[key].correct.replace(/,/g, '');
+                    isCorrect = cleanedInputValue === cleanedCorrectAnswer.toLowerCase().trim();
+                }
+
+                let justificationContent;
+                if (isCorrect) {
+                    correctCount++;
+                    resultSpan.textContent = '✅';
+                    justificationContent = `<b class="status-text correct">Correcto.</b> ${answers[key].justification}`;
+                } else {
+                    resultSpan.textContent = '❌';
+                    if (Array.isArray(answers[key].correct)) {
+                        justificationContent = `<b class="status-text incorrect">Incorrecto.</b> Las respuestas correctas son "${answers[key].correct.join('" o "')}". ${answers[key].justification}`;
+                    } else {
+                        justificationContent = `<b class="status-text incorrect">Incorrecto.</b> La respuesta correcta es "${answers[key].correct}". ${answers[key].justification}`;
+                    }
+                }
+                justificationSpan.innerHTML = justificationContent;
+                justificationSpan.classList.add('show-justification');
+            }
+            
+            resultDiv.textContent = `Correctas: ${correctCount} de ${totalQuestions}`;
+            resultDiv.classList.add(correctCount === totalQuestions ? 'correct' : 'incorrect');
+            resultDiv.classList.remove(correct-count === totalQuestions ? 'incorrect' : 'correct');
+        }
+
+
+        // New function to toggle the reading text
+        function showReadingText() {
+            const readingWords = document.getElementById('reading-text-words');
+            readingWords.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>
