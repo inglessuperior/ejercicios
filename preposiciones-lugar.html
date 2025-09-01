@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio de Preposiciones de Lugar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .container {
+            max-width: 490px;
+            margin: 40px auto;
+            padding: 24px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .exercise-section {
+            background-color: #e2e8f0;
+            padding: 24px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+        }
+        .correct {
+            color: #16a34a;
+        }
+        .incorrect {
+            color: #dc2626;
+        }
+        .justification-container {
+            padding: 8px;
+            border-radius: 4px;
+            margin-top: 8px;
+            transition: background-color 0.3s ease;
+        }
+        .show-justification {
+            background-color: #f3f4f6;
+        }
+        .justification-container .status-text.correct {
+            color: #16a34a;
+        }
+        .justification-container .status-text.incorrect {
+            color: #dc2626;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center flex-col">
+    <!-- School logo -->
+    <div class="my-8 flex items-center justify-center">
+        <img src="https://i.imgur.com/AAiuz3j.png" alt="School Logo" class="mx-auto" style="max-height: 100px;">
+    </div>
+    
+    <!-- Title -->
+    <h1 class="text-3xl font-bold text-center text-blue-500 mb-6">Ejercicio de Preposiciones de Lugar</h1>
+
+    <div class="container">
+        
+        <!-- Sección Única: Selección Múltiple -->
+        <div id="section-2" class="exercise-section">
+            <h2 class="text-xl font-semibold text-gray-700 mb-4">Sección Única: Selección Múltiple</h2>
+            <p class="text-gray-600 mb-4">Elige la preposición que mejor complete la oración.</p>
+            
+            <form id="multiple-choice-form" class="space-y-4">
+                <div class="flex flex-col space-y-2">
+                    <p class="text-gray-700">1. The supermarket is <select id="m1" class="p-2 border rounded-md">
+                        <option value="">...</option>
+                        <option value="by">by</option>
+                        <option value="under">under</option>
+                        <option value="between">between</option>
+                    </select> the post office. <span id="m1-result" class="ml-2 font-bold"></span></p>
+                    <p class="text-gray-600 text-sm justification-container" id="m1-justification"></p>
+                </div>
+                <div class="flex flex-col space-y-2">
+                    <p class="text-gray-700">2. The children are playing happily <select id="m2" class="p-2 border rounded-md">
+                        <option value="">...</option>
+                        <option value="near">near</option>
+                        <option value="inside">inside</option>
+                        <option value="in front of">in front of</option>
+                    </select> their bedroom. <span id="m2-result" class="ml-2 font-bold"></span></p>
+                    <p class="text-gray-600 text-sm justification-container" id="m2-justification"></p>
+                </div>
+                <div class="flex flex-col space-y-2">
+                    <p class="text-gray-700">3. My phone is <select id="m3" class="p-2 border rounded-md">
+                        <option value="">...</option>
+                        <option value="under">under</option>
+                        <option value="behind">behind</option>
+                        <option value="inside">inside</option>
+                    </select> my bag. <span id="m3-result" class="ml-2 font-bold"></span></p>
+                    <p class="text-gray-600 text-sm justification-container" id="m3-justification"></p>
+                </div>
+                <div class="flex flex-col space-y-2">
+                    <p class="text-gray-700">4. The little girl is sitting <select id="m4" class="p-2 border rounded-md">
+                        <option value="">...</option>
+                        <option value="under">under</option>
+                        <option value="next to">next to</option>
+                        <option value="between">between</option>
+                    </select> her mother. <span id="m4-result" class="ml-2 font-bold"></span></p>
+                    <p class="text-gray-600 text-sm justification-container" id="m4-justification"></p>
+                </div>
+                <div class="flex flex-col space-y-2">
+                    <p class="text-gray-700">5. The car is parked <select id="m5" class="p-2 border rounded-md">
+                        <option value="">...</option>
+                        <option value="outside">outside</option>
+                        <option value="inside">inside</option>
+                        <option value="next to">next to</option>
+                    </select> the garage, ready to leave. <span id="m5-result" class="ml-2 font-bold"></span></p>
+                    <p class="text-gray-600 text-sm justification-container" id="m5-justification"></p>
+                </div>
+                <div class="flex flex-col space-y-2">
+                    <p class="text-gray-700">6. The dog is hiding <select id="m6" class="p-2 border rounded-md">
+                        <option value="">...</option>
+                        <option value="behind">behind</option>
+                        <option value="in front of">in front of</option>
+                        <option value="near">near</option>
+                    </select> the large bush, so no one can see it. <span id="m6-result" class="ml-2 font-bold"></span></p>
+                    <p class="text-gray-600 text-sm justification-container" id="m6-justification"></p>
+                </div>
+                <div class="flex flex-col space-y-2">
+                    <p class="text-gray-700">7. The bridge is built <select id="m7" class="p-2 border rounded-md">
+                        <option value="">...</option>
+                        <option value="near">near</option>
+                        <option value="under">under</option>
+                        <option value="between">between</option>
+                    </select> the two sides of the river. <span id="m7-result" class="ml-2 font-bold"></span></p>
+                    <p class="text-gray-600 text-sm justification-container" id="m7-justification"></p>
+                </div>
+                <div class="flex flex-col space-y-2">
+                    <p class="text-gray-700">8. The library is located <select id="m8" class="p-2 border rounded-md">
+                        <option value="">...</option>
+                        <option value="near">near</option>
+                        <option value="inside">inside</option>
+                        <option value="outside">outside</option>
+                    </select> the park. <span id="m8-result" class="ml-2 font-bold"></span></p>
+                    <p class="text-gray-600 text-sm justification-container" id="m8-justification"></p>
+                </div>
+                <div class="flex flex-col space-y-2">
+                    <p class="text-gray-700">9. The keys are <select id="m9" class="p-2 border rounded-md">
+                        <option value="">...</option>
+                        <option value="under">under</option>
+                        <option value="outside">outside</option>
+                        <option value="inside">inside</option>
+                    </select> my pillow. <span id="m9-result" class="ml-2 font-bold"></span></p>
+                    <p class="text-gray-600 text-sm justification-container" id="m9-justification"></p>
+                </div>
+                <div class="flex flex-col space-y-2">
+                    <p class="text-gray-700">10. The presenter is standing <select id="m10" class="p-2 border rounded-md">
+                        <option value="">...</option>
+                        <option value="in front of">in front of</option>
+                        <option value="under">under</option>
+                        <option value="next to">next to</option>
+                    </select> the audience. <span id="m10-result" class="ml-2 font-bold"></span></p>
+                    <p class="text-gray-600 text-sm justification-container" id="m10-justification"></p>
+                </div>
+                <button type="button" onclick="checkMultipleChoiceAnswers()" class="mt-4 w-full bg-blue-500 text-white font-semibold py-2 px-4 rounded-md shadow-md hover:bg-blue-600 transition duration-300">Verificar Respuestas</button>
+            </form>
+            <div id="multiple-choice-results" class="mt-4 text-center text-lg font-semibold"></div>
+        </div>
+    </div>
+
+    <script>
+        // Answers for the exercises
+        const answers = {
+            m1: { correct: 'by', justification: 'El supermercado está al lado de la oficina de correos.' },
+            m2: { correct: 'inside', justification: 'Los niños están jugando dentro de su dormitorio.' },
+            m3: { correct: 'inside', justification: 'Mi teléfono está dentro de mi bolso.' },
+            m4: { correct: 'next to', justification: 'La niña está sentada al lado de su madre.' },
+            m5: { correct: 'outside', justification: 'El coche está aparcado fuera del garaje, listo para salir.' },
+            m6: { correct: 'behind', justification: 'El perro se esconde detrás del gran arbusto para que nadie pueda verlo.' },
+            m7: { correct: 'between', justification: 'El puente está construido entre los dos lados del río.' },
+            m8: { correct: 'near', justification: 'La biblioteca se encuentra cerca del parque.' },
+            m9: { correct: 'under', justification: 'Las llaves están debajo de mi almohada.' },
+            m10: { correct: 'in front of', justification: 'El presentador se para frente a la audiencia para hablar.' },
+        };
+
+        // Function to check multiple choice answers
+        function checkMultipleChoiceAnswers() {
+            let correctCount = 0;
+            let totalQuestions = 0;
+            const resultDiv = document.getElementById('multiple-choice-results');
+            const questions = ['m1', 'm2', 'm3', 'm4', 'm5', 'm6', 'm7', 'm8', 'm9', 'm10'];
+
+            questions.forEach(key => {
+                totalQuestions++;
+                const selectedValue = document.getElementById(key).value;
+                const resultSpan = document.getElementById(`${key}-result`);
+                const justificationSpan = document.getElementById(`${key}-justification`);
+
+                resultSpan.textContent = '';
+                justificationSpan.innerHTML = '';
+                justificationSpan.classList.remove('show-justification');
+
+                const isCorrect = selectedValue === answers[key].correct;
+                let justificationContent;
+
+                if (isCorrect) {
+                    correctCount++;
+                    resultSpan.textContent = '✅';
+                    justificationContent = `<b class="status-text correct">Correcto.</b> ${answers[key].justification}`;
+                } else {
+                    resultSpan.textContent = '❌';
+                    justificationContent = `<b class="status-text incorrect">Incorrecto.</b> La respuesta correcta es "${answers[key].correct}". ${answers[key].justification}`;
+                }
+                
+                justificationSpan.innerHTML = justificationContent;
+                justificationSpan.classList.add('show-justification');
+            });
+            
+            resultDiv.textContent = `Correctas: ${correctCount} de ${totalQuestions}`;
+            resultDiv.classList.add(correctCount === totalQuestions ? 'correct' : 'incorrect');
+            resultDiv.classList.remove(correctCount === totalQuestions ? 'incorrect' : 'correct');
+        }
+    </script>
+</body>
+</html>

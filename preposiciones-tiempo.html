@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio de Preposiciones de Tiempo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .container {
+            max-width: 490px;
+            margin: 40px auto;
+            padding: 24px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .exercise-section {
+            background-color: #e2e8f0;
+            padding: 24px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+        }
+        .correct {
+            color: #16a34a;
+        }
+        .incorrect {
+            color: #dc2626;
+        }
+        .justification-container {
+            padding: 8px;
+            border-radius: 4px;
+            margin-top: 8px;
+            transition: background-color 0.3s ease;
+        }
+        .show-justification {
+            background-color: #f3f4f6;
+        }
+        .justification-container .status-text.correct {
+            color: #16a34a;
+        }
+        .justification-container .status-text.incorrect {
+            color: #dc2626;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center flex-col">
+    <!-- School logo -->
+    <div class="my-8 flex items-center justify-center">
+        <img src="https://i.imgur.com/AAiuz3j.png" alt="School Logo" class="mx-auto" style="max-height: 100px;">
+    </div>
+    
+    <!-- Title -->
+    <h1 class="text-3xl font-bold text-center text-blue-500 mb-6">Ejercicio de Preposiciones de Tiempo</h1>
+
+    <div class="container">
+        
+        <!-- Sección Única: Selección Múltiple -->
+        <div id="section-2" class="exercise-section">
+            <h2 class="text-xl font-semibold text-gray-700 mb-4">Sección Única: Selección Múltiple</h2>
+            <p class="text-gray-600 mb-4">Elige la preposición que mejor complete la oración.</p>
+            
+            <form id="multiple-choice-form" class="space-y-4">
+                <div class="flex flex-col space-y-2">
+                    <p class="text-gray-700">1. We will have a coffee <select id="m1" class="p-2 border rounded-md">
+                        <option value="">...</option>
+                        <option value="before">before</option>
+                        <option value="after">after</option>
+                        <option value="until">until</option>
+                    </select> the meeting starts. <span id="m1-result" class="ml-2 font-bold"></span></p>
+                    <p class="text-gray-600 text-sm justification-container" id="m1-justification"></p>
+                </div>
+                <div class="flex flex-col space-y-2">
+                    <p class="text-gray-700">2. The store is open <select id="m2" class="p-2 border rounded-md">
+                        <option value="">...</option>
+                        <option value="from">from</option>
+                        <option value="until">until</option>
+                        <option value="before">before</option>
+                    </select> 9 AM to 5 PM. <span id="m2-result" class="ml-2 font-bold"></span></p>
+                    <p class="text-gray-600 text-sm justification-container" id="m2-justification"></p>
+                </div>
+                <div class="flex flex-col space-y-2">
+                    <p class="text-gray-700">3. We are meeting for coffee <select id="m3" class="p-2 border rounded-md">
+                        <option value="">...</option>
+                        <option value="around">around</option>
+                        <option value="after">after</option>
+                        <option value="until">until</option>
+                    </select> noon, so don't be late. <span id="m3-result" class="ml-2 font-bold"></span></p>
+                    <p class="text-gray-600 text-sm justification-container" id="m3-justification"></p>
+                </div>
+                <div class="flex flex-col space-y-2">
+                    <p class="text-gray-700">4. We will stay here <select id="m4" class="p-2 border rounded-md">
+                        <option value="">...</option>
+                        <option value="before">before</option>
+                        <option value="until">until</option>
+                        <option value="from">from</option>
+                    </select> the rain stops. <span id="m4-result" class="ml-2 font-bold"></span></p>
+                    <p class="text-gray-600 text-sm justification-container" id="m4-justification"></p>
+                </div>
+                <div class="flex flex-col space-y-2">
+                    <p class="text-gray-700">5. Please finish your homework <select id="m5" class="p-2 border rounded-md">
+                        <option value="">...</option>
+                        <option value="after">after</option>
+                        <option value="before">before</option>
+                        <option value="around">around</option>
+                    </select> you go out to play. <span id="m5-result" class="ml-2 font-bold"></span></p>
+                    <p class="text-gray-600 text-sm justification-container" id="m5-justification"></p>
+                </div>
+                <div class="flex flex-col space-y-2">
+                    <p class="text-gray-700">6. The class starts <select id="m6" class="p-2 border rounded-md">
+                        <option value="">...</option>
+                        <option value="after">after</option>
+                        <option value="before">before</option>
+                        <option value="around">around</option>
+                    </select> 10 AM. <span id="m6-result" class="ml-2 font-bold"></span></p>
+                    <p class="text-gray-600 text-sm justification-container" id="m6-justification"></p>
+                </div>
+                <div class="flex flex-col space-y-2">
+                    <p class="text-gray-700">7. He always works hard <select id="m7" class="p-2 border rounded-md">
+                        <option value="">...</option>
+                        <option value="until">until</option>
+                        <option value="before">before</option>
+                        <option value="after">after</option>
+                    </select> the end of the day. <span id="m7-result" class="ml-2 font-bold"></span></p>
+                    <p class="text-gray-600 text-sm justification-container" id="m7-justification"></p>
+                </div>
+                <div class="flex flex-col space-y-2">
+                    <p class="text-gray-700">8. We need to leave <select id="m8" class="p-2 border rounded-md">
+                        <option value="">...</option>
+                        <option value="after">after</option>
+                        <option value="before">before</option>
+                        <option value="until">until</option>
+                    </select> sunset. <span id="m8-result" class="ml-2 font-bold"></span></p>
+                    <p class="text-gray-600 text-sm justification-container" id="m8-justification"></p>
+                </div>
+                <div class="flex flex-col space-y-2">
+                    <p class="text-gray-700">9. The movie starts <select id="m9" class="p-2 border rounded-md">
+                        <option value="">...</option>
+                        <option value="after">after</option>
+                        <option value="around">around</option>
+                        <option value="until">until</option>
+                    </select> 7 PM. <span id="m9-result" class="ml-2 font-bold"></span></p>
+                    <p class="text-gray-600 text-sm justification-container" id="m9-justification"></p>
+                </div>
+                <div class="flex flex-col space-y-2">
+                    <p class="text-gray-700">10. The children played in the park <select id="m10" class="p-2 border rounded-md">
+                        <option value="">...</option>
+                        <option value="until">until</option>
+                        <option value="after">after</option>
+                        <option value="around">around</option>
+                    </select> sunset. <span id="m10-result" class="ml-2 font-bold"></span></p>
+                    <p class="text-gray-600 text-sm justification-container" id="m10-justification"></p>
+                </div>
+                <button type="button" onclick="checkMultipleChoiceAnswers()" class="mt-4 w-full bg-blue-500 text-white font-semibold py-2 px-4 rounded-md shadow-md hover:bg-blue-600 transition duration-300">Verificar Respuestas</button>
+            </form>
+            <div id="multiple-choice-results" class="mt-4 text-center text-lg font-semibold"></div>
+        </div>
+    </div>
+
+    <script>
+        // Answers for the exercises
+        const answers = {
+            m1: { correct: 'before', justification: 'Tomaremos un café antes de que comience la reunión.' },
+            m2: { correct: 'from', justification: 'La tienda está abierta de 9 a.m. a 5 p.m.' },
+            m3: { correct: 'around', justification: 'Nos reuniremos para tomar café alrededor del mediodía, así que no llegues tarde.' },
+            m4: { correct: 'until', justification: 'Nos quedaremos aquí hasta que la lluvia se detenga.' },
+            m5: { correct: 'before', justification: 'Por favor, termina tu tarea antes de que salgas a jugar.' },
+            m6: { correct: 'around', justification: 'La clase comienza alrededor de las 10 a.m.' },
+            m7: { correct: 'until', justification: 'Él siempre trabaja duro hasta el final del día.' },
+            m8: { correct: 'before', justification: 'Necesitamos irnos antes del atardecer.' },
+            m9: { correct: 'around', justification: 'La película comienza alrededor de las 7 p.m.' },
+            m10: { correct: 'until', justification: 'Los niños jugaron en el parque hasta el atardecer.' },
+        };
+
+        // Function to check multiple choice answers
+        function checkMultipleChoiceAnswers() {
+            let correctCount = 0;
+            let totalQuestions = 0;
+            const resultDiv = document.getElementById('multiple-choice-results');
+            const questions = ['m1', 'm2', 'm3', 'm4', 'm5', 'm6', 'm7', 'm8', 'm9', 'm10'];
+
+            questions.forEach(key => {
+                totalQuestions++;
+                const selectedValue = document.getElementById(key).value;
+                const resultSpan = document.getElementById(`${key}-result`);
+                const justificationSpan = document.getElementById(`${key}-justification`);
+
+                resultSpan.textContent = '';
+                justificationSpan.innerHTML = '';
+                justificationSpan.classList.remove('show-justification');
+
+                const isCorrect = selectedValue === answers[key].correct;
+                let justificationContent;
+
+                if (isCorrect) {
+                    correctCount++;
+                    resultSpan.textContent = '✅';
+                    justificationContent = `<b class="status-text correct">Correcto.</b> ${answers[key].justification}`;
+                } else {
+                    resultSpan.textContent = '❌';
+                    justificationContent = `<b class="status-text incorrect">Incorrecto.</b> La respuesta correcta es "${answers[key].correct}". ${answers[key].justification}`;
+                }
+                
+                justificationSpan.innerHTML = justificationContent;
+                justificationSpan.classList.add('show-justification');
+            });
+            
+            resultDiv.textContent = `Correctas: ${correctCount} de ${totalQuestions}`;
+            resultDiv.classList.add(correctCount === totalQuestions ? 'correct' : 'incorrect');
+            resultDiv.classList.remove(correctCount === totalQuestions ? 'incorrect' : 'correct');
+        }
+    </script>
+</body>
+</html>
