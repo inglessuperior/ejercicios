@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicios: Verbo "To Be" (am/is/are)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            color: #333;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        .ejercicio {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+        }
+        .pregunta {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        input, select, button {
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .correcto {
+            color: green;
+            font-weight: bold;
+        }
+        .incorrecto {
+            color: red;
+            font-weight: bold;
+        }
+        #drag-area {
+            min-height: 50px;
+            border: 2px dashed #ccc;
+            padding: 10px;
+            margin: 10px 0;
+            text-align: center;
+        }
+        .draggable {
+            background-color: #e1f5fe;
+            padding: 5px 10px;
+            margin: 5px;
+            cursor: move;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ejercicios: Verbo "To Be" (am/is/are)</h1>
+
+    <!-- Ejercicio 1: Dropdown menu -->
+    <div class="ejercicio">
+        <div class="pregunta">1. Selecciona la forma correcta del verbo "to be":<br>
+        She ___ from Spain.
+        <select id="ejercicio1">
+            <option value="">-- Selecciona --</option>
+            <option value="am">am</option>
+            <option value="is">is</option>
+            <option value="are">are</option>
+        </select>
+        <button onclick="verificarEjercicio1()">Verificar</button>
+        <p id="resultado1"></p>
+        </div>
+    </div>
+
+    <!-- Ejercicio 2: Campo de texto -->
+    <div class="ejercicio">
+        <div class="pregunta">2. Completa la oración:<br>
+        We ___ students.
+        <input type="text" id="ejercicio2" placeholder="Escribe la respuesta">
+        <button onclick="verificarEjercicio2()">Verificar</button>
+        <p id="resultado2"></p>
+        </div>
+    </div>
+
+    <!-- Ejercicio 3: Multiple choice -->
+    <div class="ejercicio">
+        <div class="pregunta">3. Elige la opción correcta:<br>
+        ___ you ready?
+        <div>
+            <input type="radio" id="opcion3a" name="ejercicio3" value="am">
+            <label for="opcion3a">am</label><br>
+            <input type="radio" id="opcion3b" name="ejercicio3" value="is">
+            <label for="opcion3b">is</label><br>
+            <input type="radio" id="opcion3c" name="ejercicio3" value="are">
+            <label for="opcion3c">are</label>
+        </div>
+        <button onclick="verificarEjercicio3()">Verificar</button>
+        <p id="resultado3"></p>
+    </div>
+
+    <!-- Ejercicio 4: Arrastra y suelta (afirmaciones/negaciones) -->
+    <div class="ejercicio">
+        <div class="pregunta">4. Arrastra la palabra correcta para completar la oración:<br>
+        I <span id="drop-area" style="border: 1px dashed #ccc; padding: 5px; display: inline-block; min-width: 50px;"></span> happy.
+        <div id="drag-area">
+            <span class="draggable" draggable="true" ondragstart="drag(event)">am</span>
+            <span class="draggable" draggable="true" ondragstart="drag(event)">is</span>
+            <span class="draggable" draggable="true" ondragstart="drag(event)">are</span>
+        </div>
+        <button onclick="verificarEjercicio4()">Verificar</button>
+        <p id="resultado4"></p>
+    </div>
+
+    <!-- Ejercicio 5: Negaciones -->
+    <div class="ejercicio">
+        <div class="pregunta">5. Escribe la forma negativa de la oración:<br>
+        They are teachers. → They ___ teachers.
+        <input type="text" id="ejercicio5" placeholder="Ej: are not">
+        <button onclick="verificarEjercicio5()">Verificar</button>
+        <p id="resultado5"></p>
+    </div>
+
+    <script>
+        // Ejercicio 1: Dropdown
+        function verificarEjercicio1() {
+            const respuesta = document.getElementById("ejercicio1").value;
+            const resultado = document.getElementById("resultado1");
+            if (respuesta === "is") {
+                resultado.innerHTML = "✅ Correcto: 'She <strong>is</strong> from Spain.'";
+                resultado.className = "correcto";
+            } else {
+                resultado.innerHTML = "❌ Incorrecto. La respuesta correcta es 'is'.";
+                resultado.className = "incorrecto";
+            }
+        }
+
+        // Ejercicio 2: Campo de texto
+        function verificarEjercicio2() {
+            const respuesta = document.getElementById("ejercicio2").value.toLowerCase();
+            const resultado = document.getElementById("resultado2");
+            if (respuesta === "are") {
+                resultado.innerHTML = "✅ Correcto: 'We <strong>are</strong> students.'";
+                resultado.className = "correcto";
+            } else {
+                resultado.innerHTML = "❌ Incorrecto. La respuesta correcta es 'are'.";
+                resultado.className = "incorrecto";
+            }
+        }
+
+        // Ejercicio 3: Multiple choice
+        function verificarEjercicio3() {
+            const opciones = document.getElementsByName("ejercicio3");
+            let respuesta = "";
+            for (const opcion of opciones) {
+                if (opcion.checked) {
+                    respuesta = opcion.value;
+                    break;
+                }
+            }
+            const resultado = document.getElementById("resultado3");
+            if (respuesta === "are") {
+                resultado.innerHTML = "✅ Correcto: '<strong>Are</strong> you ready?'";
+                resultado.className = "correcto";
+            } else {
+                resultado.innerHTML = "❌ Incorrecto. La respuesta correcta es 'are'.";
+                resultado.className = "incorrecto";
+            }
+        }
+
+        // Ejercicio 4: Arrastra y suelta
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.innerHTML);
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            const data = ev.dataTransfer.getData("text");
+            ev.target.innerHTML = data;
+        }
+
+        function verificarEjercicio4() {
+            const dropArea = document.getElementById("drop-area");
+            const respuesta = dropArea.innerHTML;
+            const resultado = document.getElementById("resultado4");
+            if (respuesta === "am") {
+                resultado.innerHTML = "✅ Correcto: 'I <strong>am</strong> happy.'";
+                resultado.className = "correcto";
+            } else {
+                resultado.innerHTML = "❌ Incorrecto. La respuesta correcta es 'am'.";
+                resultado.className = "incorrecto";
+            }
+        }
+
+        // Ejercicio 5: Negaciones
+        function verificarEjercicio5() {
+            const respuesta = document.getElementById("ejercicio5").value.toLowerCase();
+            const resultado = document.getElementById("resultado5");
+            if (respuesta === "are not" || respuesta === "aren't") {
+                resultado.innerHTML = "✅ Correcto: 'They <strong>are not</strong> teachers.'";
+                resultado.className = "correcto";
+            } else {
+                resultado.innerHTML = "❌ Incorrecto. La respuesta correcta es 'are not' o 'aren't'.";
+                resultado.className = "incorrecto";
+            }
+        }
+    </script>
+</body>
+</html>
