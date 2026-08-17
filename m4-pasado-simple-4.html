@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pasado simple - 4</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Librería de Confeti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #334155;
+            margin: 0;
+            padding: 24px 20px;
+            background-color: #f1f5f9;
+        }
+
+        section {
+            margin-bottom: 24px;
+        }
+
+        .formula {
+            background-color: white;
+            border: 1px solid #e9ecef;
+            padding: 16px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+            font-weight: 500;
+            margin-bottom: 16px;
+        }
+
+        .titulo1 {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #2563eb;
+            line-height: 1.25;
+        }
+
+        .titulo2 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .text-container {
+            flex: 1;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+            padding: 32px;
+            border: 1px solid #e2e8f0;
+        }
+
+        /* Espacios de escritura para completar */
+        .sentence-input {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 130px;
+            height: 38px;
+            border: 2px solid #94a3b8;
+            background-color: #f8fafc;
+            border-radius: 6px;
+            margin: 0 6px 0 0;
+            padding: 0 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1e293b;
+            vertical-align: middle;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .sentence-input:focus {
+            outline: none;
+            border-color: #2563eb;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        .question-item {
+            padding: 14px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .question-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Estilos de retroalimentación */
+        .feedback-text {
+            font-size: 0.95rem;
+            margin-top: 8px;
+            padding: 10px 12px;
+            border-radius: 6px;
+            display: none;
+        }
+
+        .feedback-text.show-correct {
+            display: block;
+            background-color: #d1e7dd;
+            color: #0f5132;
+            border-left: 4px solid #a3cfbb;
+        }
+
+        .feedback-text.show-incorrect {
+            display: block;
+            background-color: #fee2e2;
+            color: #991b1b;
+            border-left: 4px solid #ef4444;
+        }
+
+        @media (max-width: 640px) {
+            body { padding: 12px 10px; }
+            .text-container { padding: 20px; }
+            .titulo1 { font-size: 2.25rem; }
+        }
+
+        @media print {
+            body {
+                font-size: 11pt;
+                background-color: white !important;
+                color: black !important;
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
+            }
+            .titulo1 { font-size: 18pt; }
+            .titulo2 { font-size: 14pt; }
+            .check-btn-container { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="max-w-4xl mx-auto text-center">
+    <img src="https://i.imgur.com/jIUcYJz.png" class="imagen1" alt="Logo de Inglés Superior" style="display: block; margin: 1rem auto;">
+    <p class="formula mx-auto p-0" style="width: 30%">MÓDULO: 4</p>
+    <h1 class="titulo1 mt-2 mb-8">Pasado simple</h1>
+</header>
+
+<main class="max-w-4xl mx-auto">
+
+    <!-- Cuadro independiente para Instrucciones -->
+    <section class="mb-6">
+        <div class="text-container">
+            <h2 class="titulo2 mb-4">Complete the sentences</h2>
+            <p class="text-slate-600">Write the missing words to complete the sentences in past tense.</p>
+        </div>
+    </section>
+
+    <!-- Contenedor para el resultado superior -->
+    <section id="results-section" class="hidden my-12">
+        <div id="results-card" class="text-container text-center border-0 shadow-lg bg-white space-y-3">
+            <div id="score-emoji" class="text-4xl">🚀</div>
+            <h2 class="titulo2 text-slate-800">Test completed!</h2>
+            <p id="score-text-container" class="text-xl font-bold text-slate-600">Correct answers: <span id="score-text">0/10</span></p>
+            <p id="score-percentage-container" class="text-xl font-bold text-slate-600">Your score is <span id="score-percentage">0%</span></p>
+        </div>
+    </section>
+
+    <!-- Cuadro independiente para el Ejercicio -->
+    <section class="mb-6">
+        <div class="text-container">
+
+            <!-- Lista de Oraciones -->
+            <div id="sentences-container">
+                <!-- Oraciones inyectadas por JS -->
+            </div>
+
+            <!-- Botones de Acción -->
+            <div class="check-btn-container mt-8 text-center">
+                <button type="button" onclick="checkAnswers()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow transition duration-200">
+                    Check Answers
+                </button>
+                <button type="button" onclick="resetQuiz()" class="ml-4 bg-slate-500 hover:bg-slate-600 text-white font-bold py-3 px-6 rounded-lg shadow transition duration-200">
+                    Reset
+                </button>
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+<script>
+    const data = [
+        { 
+            id: 1, 
+            parts: [
+                { type: "text", content: "They " },
+                { type: "input", answer: "found" },
+                { type: "hint", content: "(find)" },
+                { type: "text", content: " their lost keys under the couch." }
+            ],
+            explanation: "The past form of 'find' is the irregular verb 'found'." 
+        },
+        { 
+            id: 2, 
+            parts: [
+                { type: "text", content: "Karla " },
+                { type: "input", answer: "danced" },
+                { type: "hint", content: "(dance)" },
+                { type: "text", content: " a lot at the party last night." }
+            ],
+            explanation: "For regular verbs ending in 'e', add '-d' to form the simple past ('danced')." 
+        },
+        { 
+            id: 3, 
+            parts: [
+                { type: "text", content: "We " },
+                { type: "input", answer: "didn't work" },
+                { type: "hint", content: "(not / work)" },
+                { type: "text", content: " on the project yesterday." }
+            ],
+            explanation: "Use 'didn't' (didn't work) for negative sentences in simple past." 
+        },
+        { 
+            id: 4, 
+            parts: [
+                { type: "text", content: "What " },
+                { type: "input", answer: "did" },
+                { type: "text", content: " you " },
+                { type: "input", answer: "say" },
+                { type: "hint", content: "(say)" },
+                { type: "text", content: " during the meeting?" }
+            ],
+            explanation: "Wh- questions in simple past use 'did' followed by the subject and the base form of the verb (say)." 
+        },
+        { 
+            id: 5, 
+            parts: [
+                { type: "text", content: "They " },
+                { type: "input", answer: "weren't" },
+                { type: "hint", content: "(not / be)" },
+                { type: "text", content: " happy with the restaurant service." }
+            ],
+            explanation: "Use 'weren't' (were not) as the past form of the verb 'to be' for plural subjects ('they')." 
+        },
+        { 
+            id: 6, 
+            parts: [
+                { type: "text", content: "He " },
+                { type: "input", answer: "drank" },
+                { type: "hint", content: "(drink)" },
+                { type: "text", content: " two cups of tea this morning." }
+            ],
+            explanation: "'Drank' is the simple past form of 'drink'." 
+        },
+        { 
+            id: 7, 
+            parts: [
+                { type: "text", content: "The bus " },
+                { type: "input", answer: "stopped" },
+                { type: "hint", content: "(stop)" },
+                { type: "text", content: " in front of the station." }
+            ],
+            explanation: "For short regular verbs ending in a consonant-vowel-consonant, double the final consonant and add '-ed' ('stopped')." 
+        },
+        { 
+            id: 8, 
+            parts: [
+                { type: "text", content: "I " },
+                { type: "input", answer: "didn't know" },
+                { type: "hint", content: "(not / know)" },
+                { type: "text", content: " the answer to the question." }
+            ],
+            explanation: "Use 'didn't' for negative sentences in simple past, keeping the main verb in its base form." 
+        },
+        { 
+            id: 9, 
+            parts: [
+                { type: "input", answer: "Were" },
+                { type: "hint", content: "(be)" },
+                { type: "text", content: " you at home last night?" }
+            ],
+            explanation: "Start simple past questions with the verb 'to be' using 'were' for the subject 'you'." 
+        },
+        { 
+            id: 10, 
+            parts: [
+                { type: "text", content: "Linda " },
+                { type: "input", answer: "wrote" },
+                { type: "hint", content: "(write)" },
+                { type: "text", content: " a beautiful letter to her friend." }
+            ],
+            explanation: "'Wrote' is the simple past form of 'write'." 
+        }
+    ];
+
+    const sentencesContainer = document.getElementById('sentences-container');
+
+    function initQuiz() {
+        sentencesContainer.innerHTML = '';
+
+        // Renderizar oraciones con múltiples inputs dinámicos según la estructura de parts
+        data.forEach((item, index) => {
+            const row = document.createElement('div');
+            row.className = 'question-item';
+            
+            let htmlContent = `
+                <p class="font-medium text-lg mb-2">
+                    <span class="font-bold text-slate-400 mr-2">${index + 1}.</span>
+            `;
+
+            item.parts.forEach(part => {
+                if (part.type === "text") {
+                    htmlContent += `<span>${part.content}</span>`;
+                } else if (part.type === "input") {
+                    htmlContent += `<input type="text" class="sentence-input" data-expected="${part.answer}" autocomplete="off" autocapitalize="off" spellcheck="false">`;
+                } else if (part.type === "hint") {
+                    htmlContent += `<span class="text-slate-500 font-normal mr-2">${part.content}</span>`;
+                }
+            });
+
+            htmlContent += `</p><div class="feedback-text"></div>`;
+            row.innerHTML = htmlContent;
+            sentencesContainer.appendChild(row);
+        });
+
+        document.getElementById('results-section').classList.add('hidden');
+    }
+
+    function checkAnswers() {
+        const rows = document.querySelectorAll('.question-item');
+        let totalCorrect = 0;
+        let totalInputs = 0;
+        let correctInputs = 0;
+
+        rows.forEach((row, index) => {
+            const inputs = row.querySelectorAll('.sentence-input');
+            const feedback = row.querySelector('.feedback-text');
+            const explanation = data[index].explanation;
+            
+            feedback.className = 'feedback-text';
+            let rowAllCorrect = true;
+            let rowAnsweredAll = true;
+
+            inputs.forEach(input => {
+                totalInputs++;
+                const expected = input.dataset.expected;
+                const userText = input.value.trim();
+
+                if (userText === "") {
+                    rowAnsweredAll = false;
+                    rowAllCorrect = false;
+                } else if (userText.toLowerCase() === expected.toLowerCase()) {
+                    correctInputs++;
+                } else {
+                    rowAllCorrect = false;
+                }
+            });
+
+            // Dar estilo visual a los inputs de la fila
+            if (rowAnsweredAll && rowAllCorrect) {
+                inputs.forEach(input => {
+                    input.className = 'sentence-input bg-emerald-50 border-emerald-500 text-emerald-900';
+                });
+                feedback.innerHTML = `<strong>Correct!</strong> Well done.<br><span class="text-sm mt-1 block"><strong>Why?</strong> ${explanation}</span>`;
+                feedback.classList.add('show-correct');
+                totalCorrect++;
+            } else {
+                inputs.forEach(input => {
+                    const expected = input.dataset.expected;
+                    const userText = input.value.trim();
+                    if (userText !== "" && userText.toLowerCase() === expected.toLowerCase()) {
+                        input.className = 'sentence-input bg-emerald-50 border-emerald-500 text-emerald-900';
+                    } else {
+                        input.className = 'sentence-input bg-rose-50 border-rose-500 text-rose-900';
+                    }
+                });
+                
+                // Construir texto de respuestas correctas para la fila
+                let expectedFullStr = data[index].parts.filter(p => p.type === 'input').map(p => `"${p.answer}"`).join(' / ');
+                
+                if (!rowAnsweredAll) {
+                    feedback.innerHTML = `<strong>Not fully answered.</strong> Expected: <strong>${expectedFullStr}</strong>.<br><span class="text-sm mt-1 block"><strong>Why?</strong> ${explanation}</span>`;
+                } else {
+                    feedback.innerHTML = `<strong>Incorrect.</strong> Expected: <strong>${expectedFullStr}</strong>.<br><span class="text-sm mt-1 block"><strong>Why?</strong> ${explanation}</span>`;
+                }
+                feedback.classList.add('show-incorrect');
+            }
+        });
+
+        // Configuración de la tarjeta superior de resultados basada en oraciones completas correctas
+        const totalQuestions = data.length;
+        const percentage = Math.round((totalCorrect / totalQuestions) * 100);
+
+        document.getElementById('score-text').innerText = `${totalCorrect}/${totalQuestions}`;
+        document.getElementById('score-percentage').innerText = `${percentage}%`;
+
+        const emojiDisplay = document.getElementById('score-emoji');
+        const resultsCard = document.getElementById('results-card');
+        const scoreTextContainer = document.getElementById('score-text-container');
+        const scorePercentageContainer = document.getElementById('score-percentage-container');
+
+        if (percentage === 100) {
+            emojiDisplay.innerText = '🏆';
+            emojiDisplay.className = 'text-6xl my-4';
+            resultsCard.className = 'text-container text-center border-0 shadow-lg bg-amber-100 space-y-3';
+            scoreTextContainer.className = 'text-xl font-bold text-amber-700';
+            scorePercentageContainer.className = 'text-xl font-bold text-amber-700';
+
+            // Disparar confeti
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        } else {
+            emojiDisplay.innerText = percentage >= 80 ? '🎉' : (percentage >= 50 ? '🚀' : '📚');
+            emojiDisplay.className = 'text-4xl';
+            resultsCard.className = 'text-container text-center border-0 shadow-md bg-white space-y-3';
+            scoreTextContainer.className = 'text-xl font-bold text-slate-600';
+            scorePercentageContainer.className = 'text-xl font-bold text-slate-600';
+        }
+
+        const resultsSection = document.getElementById('results-section');
+        resultsSection.classList.remove('hidden');
+
+        const yOffset = -40;
+        const targetPosition = resultsSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+    }
+
+    function resetQuiz() {
+        initQuiz();
+        const resultsCard = document.getElementById('results-card');
+        if (resultsCard) {
+            resultsCard.className = 'text-container text-center border-0 shadow-lg bg-white space-y-3';
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    initQuiz();
+</script>
+
+</body>
+</html>
