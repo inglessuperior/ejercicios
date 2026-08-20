@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conectores narrativos - 1</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #334155;
+            margin: 0;
+            padding: 24px 20px;
+            background-color: #f1f5f9;
+        }
+
+        section { margin-bottom: 24px; }
+
+        .formula {
+            background-color: white;
+            border: 1px solid #e9ecef;
+            padding: 16px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+            font-weight: 500;
+            margin-bottom: 16px;
+        }
+
+        .titulo1 { font-size: 3rem; font-weight: 700; color: #2563eb; line-height: 1.25; }
+        .titulo2 { font-size: 1.875rem; font-weight: 700; color: #0f172a; }
+
+        .text-container {
+            flex: 1;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+            padding: 32px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .blank-line {
+            display: inline-block;
+            min-width: 90px;
+            border-bottom: 2px solid #94a3b8;
+            margin: 0 6px;
+            vertical-align: bottom;
+            text-align: center;
+        }
+
+        .question-item { padding: 24px 0; border-bottom: 1px solid #e2e8f0; }
+        .question-item:last-child { border-bottom: none; }
+
+        .option-btn {
+            display: block;
+            width: 100%;
+            padding: 8px 18px;
+            margin: 8px 0;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            background-color: #f8fafc;
+            color: #334155;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: left;
+        }
+
+        .option-btn:hover { background-color: #e2e8f0; }
+        .option-btn.selected {
+            border: 1px solid #2563eb;
+            background-color: #dbeafe;
+            color: #1e40af;
+            box-shadow: 0 0 0 1px #2563eb;
+        }
+        .option-btn.correct { background-color: #d1e7dd !important; border-color: #a3cfbb !important; color: #0f5132 !important; box-shadow: none !important; }
+        .option-btn.incorrect { background-color: #fee2e2 !important; border-color: #ef4444 !important; color: #991b1b !important; box-shadow: none !important; }
+
+        .feedback-text { font-size: 0.95rem; margin-top: 12px; padding: 12px; border-radius: 6px; display: none; }
+        .feedback-text.show-correct { display: block; background-color: #d1e7dd; color: #0f5132; border-left: 4px solid #a3cfbb; }
+        .feedback-text.show-incorrect { display: block; background-color: #fee2e2; color: #991b1b; border-left: 4px solid #ef4444; }
+
+        @media (max-width: 640px) {
+            body { padding: 12px 10px; }
+            .text-container { padding: 20px; }
+            .titulo1 { font-size: 2.25rem; }
+            section { margin-bottom: 20px; }
+        }
+
+        @media print {
+            @media print {
+    body { 
+        font-size: 11pt; 
+        background-color: white !important; 
+        color: black !important; 
+        print-color-adjust: exact;          /* Propiedad estándar */
+        -webkit-print-color-adjust: exact;  /* Prefijo de compatibilidad */
+    }
+    /* ... */
+}
+            .titulo1 { font-size: 18pt; }
+            .titulo2 { font-size: 14pt; }
+            .check-btn-container { display: none; }
+        }
+    </style>
+</head>
+<body>
+<header class="max-w-4xl mx-auto text-center">
+    <img src="https://i.imgur.com/jIUcYJz.png" alt="Logo de Inglés Superior" style="display: block; margin: 1rem auto;">
+    <p class="formula mx-auto p-0" style="width: 30%">MÓDULO: 4</p>
+    <h1 class="titulo1 mt-2 mb-8">Conectores narrativos</h1>
+</header>
+<main class="max-w-4xl mx-auto">
+    <section class="mb-6">
+        <div class="text-container">
+            <h2 class="titulo2 mb-4">Choose the correct option</h2>
+            <p class="text-slate-600">Select the correct option to complete each sentence.</p>
+        </div>
+    </section>
+    <section id="results-section" class="hidden my-12">
+        <div id="results-card" class="text-container text-center border-0 shadow-lg bg-white space-y-3">
+            <div id="score-emoji" class="text-4xl">🚀</div>
+            <h2 class="titulo2 text-slate-800">Test completed!</h2>
+            <p id="score-text-container" class="text-xl font-bold text-slate-800">Correct answers: <span id="score-text">0/10</span></p>
+            <p id="score-percentage-container" class="text-xl font-bold text-slate-800">Your score is <span id="score-percentage">0%</span></p>
+        </div>
+    </section>
+    <section class="mb-6">
+        <div class="text-container">
+            <form id="quiz-form">
+                <div id="questions-container"></div>
+                <div class="check-btn-container mt-10 text-center">
+                    <button type="button" onclick="checkAnswers()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow transition duration-200">Check Answers</button>
+                    <button type="button" onclick="resetQuiz()" class="ml-4 bg-slate-500 hover:bg-slate-600 text-white font-bold py-3 px-6 rounded-lg shadow transition duration-200">Reset</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</main>
+<script>
+const data = [
+    {
+        textBefore: "I woke up early this morning, ",
+        textAfter: " I prepared a delicious breakfast.",
+        options: ["because", "but", "so"],
+        correct: "so", // Posición C (índice 2)
+        explanation: "Use 'so' to show the result or consequence of an action."
+    },
+    {
+        textBefore: "She got the highest grade in the class ",
+        textAfter: " she studied very hard for the history exam.",
+        options: ["because", "so", "but"],
+        correct: "because", // Posición A (índice 0)
+        explanation: "Use 'because' to introduce the reason or cause for something."
+    },
+    {
+        textBefore: "We went to the supermarket to buy groceries, ",
+        textAfter: " we forgot to buy milk.",
+        options: ["so", "then", "but"],
+        correct: "but", // Posición C (índice 2)
+        explanation: "Use 'but' to connect contrasting or opposite ideas (going shopping, but missing the milk)."
+    },
+    {
+        textBefore: "Roy washed his hands, ",
+        textAfter: " he sat down at the dinner table.",
+        options: ["because", "then", "but"],
+        correct: "then", // Posición B (índice 1)
+        explanation: "Use 'then' to show the sequence of events in order."
+    },
+    {
+        textBefore: "She locked the front door, ",
+        textAfter: " she walked to the bus stop.",
+        options: ["or", "after that", "because"],
+        correct: "after that", // Posición B (índice 1)
+        explanation: "'After that' is a transition phrase used to show that one action happened after another."
+    },
+    {
+        textBefore: "Would you like to drink tea ",
+        textAfter: " coffee with your dessert?",
+        options: ["or", "and", "but"],
+        correct: "or", // Posición A (índice 0)
+        explanation: "Use 'or' to present a choice between two options."
+    },
+    {
+        textBefore: "My brother plays the guitar very well, and he ",
+        textAfter: " sings in a local band.",
+        options: ["finally", "because", "also"],
+        correct: "also", // Posición C (índice 2)
+        explanation: "Use 'also' to add extra information or an additional action about the subject."
+    },
+    {
+        textBefore: "Jessica and Clara went on a walk, ",
+        textAfter: " they saw a cute puppy.",
+        options: ["so", "and", "or"],
+        correct: "and", // Posición B (índice 1)
+        explanation: "Use 'and' to connect similar ideas or sequential events."
+    },
+    {
+        textBefore: "First, we rented a nice hotel room, ",
+        textAfter: " we went to explore the city center.",
+        options: ["because", "but", "next"],
+        correct: "next", // Posición C (índice 2)
+        explanation: "'Next' is used to talk about the next step in a sequence of events."
+    },
+    {
+        textBefore: "The weather was cold and rainy, ",
+        textAfter: " we decided to stay home and watch a movie.",
+        options: ["so", "also", "because"],
+        correct: "so", // Posición A (índice 0)
+        explanation: "Use 'so' to express the outcome or decision resulting from a situation."
+    }
+];
+
+    const questionsContainer = document.getElementById('questions-container');
+
+    function initQuiz() {
+        questionsContainer.innerHTML = '';
+        data.forEach((item, index) => {
+            const row = document.createElement('div');
+            row.className = 'question-item';
+            row.setAttribute('data-correct', item.correct);
+            row.setAttribute('data-explanation', item.explanation);
+            let optionsHtml = '';
+            item.options.forEach(option => {
+                optionsHtml += `<button type="button" class="option-btn" onclick="selectOption(this)">${option}</button>`;
+            });
+            row.innerHTML = `
+                <p class="font-medium text-lg mb-3">
+                    <span class="font-bold text-slate-400 mr-2">${index + 1}.</span>
+                    <span>${item.textBefore}</span><span class="blank-line"></span><span>${item.textAfter}</span>
+                </p>
+                <div class="options-container">${optionsHtml}</div>
+                <div class="feedback-text"></div>
+            `;
+            questionsContainer.appendChild(row);
+        });
+        document.getElementById('results-section').classList.add('hidden');
+    }
+
+    function selectOption(button) {
+        const parent = button.parentElement;
+        const buttons = parent.querySelectorAll('.option-btn');
+        buttons.forEach(btn => btn.classList.remove('selected'));
+        button.classList.add('selected');
+    }
+
+    function checkAnswers() {
+        const questions = document.querySelectorAll('.question-item');
+        let totalCorrect = 0;
+        questions.forEach(q => {
+            const correctAnswer = q.getAttribute('data-correct');
+            const explanation = q.getAttribute('data-explanation');
+            const selectedBtn = q.querySelector('.option-btn.selected');
+            const feedback = q.querySelector('.feedback-text');
+            const allBtns = q.querySelectorAll('.option-btn');
+            allBtns.forEach(btn => btn.classList.remove('correct', 'incorrect'));
+            feedback.className = 'feedback-text';
+            if (selectedBtn) {
+                const selectedValue = selectedBtn.innerText.trim();
+                if (selectedValue === correctAnswer) {
+                    selectedBtn.classList.add('correct');
+                    feedback.innerHTML = `<strong>Correct!</strong> Well done.<br><span class="text-sm mt-1 block"><strong>Why?</strong> ${explanation}</span>`;
+                    feedback.classList.add('show-correct');
+                    totalCorrect++;
+                } else {
+                    selectedBtn.classList.add('incorrect');
+                    allBtns.forEach(btn => { if (btn.innerText.trim() === correctAnswer) btn.classList.add('correct'); });
+                    feedback.innerHTML = `<strong>Incorrect.</strong> The correct answer is <strong>"${correctAnswer}"</strong>.<br><span class="text-sm mt-1 block"><strong>Why?</strong> ${explanation}</span>`;
+                    feedback.classList.add('show-incorrect');
+                }
+            } else {
+                feedback.innerHTML = `<strong>Not answered.</strong> The correct answer is <strong>"${correctAnswer}"</strong>.<br><span class="text-sm mt-1 block"><strong>Why?</strong> ${explanation}</span>`;
+                feedback.classList.add('show-incorrect');
+            }
+        });
+        const totalQuestions = questions.length;
+        const percentage = Math.round((totalCorrect / totalQuestions) * 100);
+        document.getElementById('score-text').innerText = `${totalCorrect}/${totalQuestions}`;
+        document.getElementById('score-percentage').innerText = `${percentage}%`;
+        const emojiDisplay = document.getElementById('score-emoji');
+        const resultsCard = document.getElementById('results-card');
+        const scoreTextContainer = document.getElementById('score-text-container');
+        const scorePercentageContainer = document.getElementById('score-percentage-container');
+        if (percentage === 100) {
+            emojiDisplay.innerText = '🏆';
+            emojiDisplay.className = 'text-6xl my-4';
+            resultsCard.className = 'text-container text-center border-0 shadow-lg bg-amber-100 space-y-3';
+            scoreTextContainer.className = 'text-xl font-bold text-amber-700';
+            scorePercentageContainer.className = 'text-xl font-bold text-amber-700';
+            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+        } else {
+            emojiDisplay.innerText = percentage >= 80 ? '🎉' : (percentage >= 50 ? '🚀' : '📚');
+            emojiDisplay.className = 'text-4xl';
+            resultsCard.className = 'text-container text-center border-0 shadow-md bg-white space-y-3';
+            scoreTextContainer.className = 'text-xl font-bold text-slate-800';
+            scorePercentageContainer.className = 'text-xl font-bold text-slate-800';
+        }
+        const resultsSection = document.getElementById('results-section');
+        resultsSection.classList.remove('hidden');
+        window.scrollTo({ top: resultsSection.getBoundingClientRect().top + window.pageYOffset - 40, behavior: 'smooth' });
+    }
+
+    function resetQuiz() {
+        initQuiz();
+        // Restaurar estilos del contenedor de resultados y subir al tope
+        const resultsCard = document.getElementById('results-card');
+        resultsCard.className = 'text-container text-center border-0 shadow-lg bg-white space-y-3';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    
+    initQuiz();
+</script>
+</body>
+</html>
