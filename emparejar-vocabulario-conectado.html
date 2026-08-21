@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Emparejar vocabulario</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Sora:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #12181f;
+    --panel: #1b2430;
+    --panel-hover: #232f3e;
+    --ink: #eef1f5;
+    --ink-dim: #94a3b3;
+    --accent: #ffb454;
+    --accent-dim: #5a4527;
+    --ok: #6fd68e;
+    --ok-dim: #1e3a29;
+    --bad: #ff6b6b;
+    --radius: 14px;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Sora', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 16px 60px;
+  }
+
+  header {
+    text-align: center;
+    max-width: 520px;
+    margin-bottom: 8px;
+  }
+
+  .top-bar {
+    width: 100%;
+    max-width: 640px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12.5px;
+    color: var(--ink-dim);
+    margin-bottom: 18px;
+  }
+
+  .top-bar a {
+    color: var(--ink-dim);
+    text-decoration: none;
+  }
+  .top-bar a:hover { color: var(--accent); }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: clamp(28px, 5vw, 38px);
+    margin: 0 0 6px;
+    letter-spacing: -0.01em;
+  }
+
+  header p {
+    color: var(--ink-dim);
+    font-size: 14.5px;
+    margin: 0;
+  }
+
+  .stats {
+    display: flex;
+    gap: 22px;
+    margin: 18px 0 26px;
+    font-size: 13px;
+    color: var(--ink-dim);
+  }
+
+  .stats b {
+    color: var(--ink);
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    display: block;
+  }
+
+  .board {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    width: 100%;
+    max-width: 640px;
+  }
+
+  @media (max-width: 480px) {
+    .board { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .card {
+    aspect-ratio: 1;
+    background: var(--panel);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease;
+    position: relative;
+    padding: 8px;
+    text-align: center;
+  }
+
+  .card:hover { background: var(--panel-hover); transform: translateY(-2px); }
+
+  .card .emoji { font-size: clamp(30px, 8vw, 44px); line-height: 1; }
+  .card .word {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(15px, 4vw, 19px);
+    font-weight: 500;
+  }
+
+  .card.selected { border-color: var(--accent); background: var(--accent-dim); }
+  .card.matched {
+    border-color: var(--ok);
+    background: var(--ok-dim);
+    cursor: default;
+    opacity: 0.55;
+    transform: scale(0.94);
+  }
+  .card.wrong { animation: shake 0.35s ease; border-color: var(--bad); }
+
+  @keyframes shake {
+    25% { transform: translateX(-6px); }
+    75% { transform: translateX(6px); }
+  }
+
+  .done-banner {
+    margin-top: 26px;
+    text-align: center;
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    color: var(--ok);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  .done-banner.show { opacity: 1; }
+
+  .save-status {
+    font-family: 'Sora', sans-serif;
+    font-size: 13px;
+    color: var(--ink-dim);
+    margin-top: 6px;
+  }
+  .save-status.ok { color: var(--ok); }
+  .save-status.error { color: var(--bad); }
+
+  button.restart {
+    margin-top: 14px;
+    background: none;
+    border: 1px solid var(--ink-dim);
+    color: var(--ink);
+    font-family: 'Sora', sans-serif;
+    font-size: 13px;
+    padding: 8px 16px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+  }
+  button.restart:hover { border-color: var(--accent); color: var(--accent); }
+
+  .gate {
+    text-align: center;
+    max-width: 380px;
+    margin-top: 60px;
+  }
+  .gate p { color: var(--ink-dim); font-size: 14.5px; }
+  .gate a {
+    display: inline-block;
+    margin-top: 10px;
+    background: var(--accent);
+    color: #241a06;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 999px;
+    font-size: 14px;
+  }
+</style>
+</head>
+<body>
+
+<div class="top-bar" id="topBar" style="display:none;">
+  <span id="userEmail"></span>
+  <a href="login.html" id="logoutLink">Cerrar sesión</a>
+</div>
+
+<div id="app" style="display:none;">
+  <header>
+    <h1>Emparejar vocabulario</h1>
+    <p>Toca la palabra y luego la imagen que le corresponde. Módulo: comida (A1)</p>
+  </header>
+
+  <div class="stats">
+    <div><b id="statPairs">0/8</b>pares</div>
+    <div><b id="statMoves">0</b>intentos</div>
+  </div>
+
+  <div class="board" id="board"></div>
+
+  <div class="done-banner" id="doneBanner">
+    ¡Completado! 🎉
+    <div class="save-status" id="saveStatus"></div>
+    <div><button class="restart" onclick="init()">Jugar de nuevo</button></div>
+  </div>
+</div>
+
+<div class="gate" id="gate" style="display:none;">
+  <h1 style="font-family:'Fraunces',serif;">Inicia sesión primero</h1>
+  <p>Necesitas una cuenta para guardar tu avance en este ejercicio.</p>
+  <a href="login.html">Ir a iniciar sesión →</a>
+</div>
+
+<script type="module">
+  import { observarSesion, guardarResultado, cerrarSesion } from "./firebase-config.js";
+
+  // === EDITA ESTA LISTA PARA TU MÓDULO ===
+  const VOCAB = [
+    { word: "apple",  emoji: "🍎" },
+    { word: "bread",  emoji: "🍞" },
+    { word: "milk",   emoji: "🥛" },
+    { word: "egg",    emoji: "🥚" },
+    { word: "cheese", emoji: "🧀" },
+    { word: "fish",   emoji: "🐟" },
+    { word: "rice",   emoji: "🍚" },
+    { word: "grapes", emoji: "🍇" },
+  ];
+  // Identificadores de este ejercicio, para guardarlos junto al resultado
+  const MODULO = "modulo-2-comida";
+  const EJERCICIO = "emparejar-vocabulario-comida";
+  const TIPO = "matching";
+  // =========================================
+
+  let selected = null;
+  let matchedCount = 0;
+  let moves = 0;
+  let lock = false;
+  let yaGuardado = false;
+
+  function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  window.init = function init() {
+    selected = null;
+    matchedCount = 0;
+    moves = 0;
+    lock = false;
+    yaGuardado = false;
+    document.getElementById('doneBanner').classList.remove('show');
+    document.getElementById('saveStatus').textContent = '';
+    document.getElementById('saveStatus').className = 'save-status';
+    updateStats();
+
+    const wordCards = VOCAB.map((v, i) => ({ type: 'word', id: i, ...v }));
+    const imgCards  = VOCAB.map((v, i) => ({ type: 'img',  id: i, ...v }));
+    const all = shuffle([...wordCards, ...imgCards]);
+
+    const board = document.getElementById('board');
+    board.innerHTML = '';
+    all.forEach((c) => {
+      const el = document.createElement('div');
+      el.className = 'card';
+      el.dataset.id = c.id;
+      el.dataset.type = c.type;
+      el.innerHTML = c.type === 'word'
+        ? `<div class="word">${c.word}</div>`
+        : `<div class="emoji">${c.emoji}</div>`;
+      el.addEventListener('click', () => onCardClick(el, c));
+      board.appendChild(el);
+    });
+  }
+
+  function onCardClick(el, card) {
+    if (lock || el.classList.contains('matched')) return;
+    if (selected && selected.el === el) return;
+
+    el.classList.add('selected');
+
+    if (!selected) {
+      selected = { el, card };
+      return;
+    }
+
+    moves++;
+    updateStats();
+
+    if (selected.card.id === card.id && selected.card.type !== card.type) {
+      selected.el.classList.remove('selected');
+      selected.el.classList.add('matched');
+      el.classList.remove('selected');
+      el.classList.add('matched');
+      matchedCount++;
+      updateStats();
+      selected = null;
+
+      if (matchedCount === VOCAB.length && !yaGuardado) {
+        yaGuardado = true;
+        setTimeout(() => {
+          document.getElementById('doneBanner').classList.add('show');
+          guardarResultadoDelEjercicio();
+        }, 300);
+      }
+    } else {
+      lock = true;
+      el.classList.add('wrong');
+      selected.el.classList.add('wrong');
+      setTimeout(() => {
+        el.classList.remove('selected', 'wrong');
+        selected.el.classList.remove('selected', 'wrong');
+        selected = null;
+        lock = false;
+      }, 500);
+    }
+  }
+
+  async function guardarResultadoDelEjercicio() {
+    const statusEl = document.getElementById('saveStatus');
+    statusEl.textContent = 'Guardando resultado...';
+    statusEl.className = 'save-status';
+    try {
+      await guardarResultado({
+        modulo: MODULO,
+        ejercicio: EJERCICIO,
+        tipo: TIPO,
+        aciertos: VOCAB.length,
+        total: VOCAB.length
+      });
+      statusEl.textContent = 'Resultado guardado ✓';
+      statusEl.className = 'save-status ok';
+    } catch (err) {
+      statusEl.textContent = 'No se pudo guardar el resultado. Revisa tu conexión.';
+      statusEl.className = 'save-status error';
+      console.error(err);
+    }
+  }
+
+  function updateStats() {
+    document.getElementById('statPairs').textContent = `${matchedCount}/${VOCAB.length}`;
+    document.getElementById('statMoves').textContent = moves;
+  }
+
+  // ---------- Verificar sesión antes de mostrar el ejercicio ----------
+  observarSesion((user) => {
+    if (user) {
+      document.getElementById('topBar').style.display = 'flex';
+      document.getElementById('userEmail').textContent = user.email;
+      document.getElementById('app').style.display = 'block';
+      document.getElementById('gate').style.display = 'none';
+      init();
+    } else {
+      document.getElementById('topBar').style.display = 'none';
+      document.getElementById('app').style.display = 'none';
+      document.getElementById('gate').style.display = 'block';
+    }
+  });
+
+  document.getElementById('logoutLink').addEventListener('click', async (e) => {
+    e.preventDefault();
+    await cerrarSesion();
+    window.location.href = 'login.html';
+  });
+</script>
+
+</body>
+</html>
