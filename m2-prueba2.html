@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presente simple - 1</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #334155;
+            margin: 0;
+            padding: 24px 20px;
+            background-color: #f1f5f9;
+        }
+
+        section { margin-bottom: 24px; }
+
+        .formula {
+            background-color: white;
+            border: 1px solid #e9ecef;
+            padding: 16px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+            font-weight: 500;
+            margin-bottom: 16px;
+        }
+
+        .titulo1 { font-size: 3rem; font-weight: 700; color: #2563eb; line-height: 1.25; }
+        .titulo2 { font-size: 1.875rem; font-weight: 700; color: #0f172a; }
+
+        .text-container {
+            flex: 1;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+            padding: 32px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .blank-line {
+            display: inline-block;
+            min-width: 90px;
+            border-bottom: 2px solid #94a3b8;
+            margin: 0 6px;
+            vertical-align: bottom;
+            text-align: center;
+        }
+
+        .question-item { padding: 24px 0; border-bottom: 1px solid #e2e8f0; }
+        .question-item:last-child { border-bottom: none; }
+
+        .option-btn {
+            display: block;
+            width: 100%;
+            padding: 8px 18px;
+            margin: 8px 0;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            background-color: #f8fafc;
+            color: #334155;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: left;
+        }
+
+        .option-btn:hover { background-color: #e2e8f0; }
+        .option-btn.selected {
+            border: 1px solid #2563eb;
+            background-color: #dbeafe;
+            color: #1e40af;
+            box-shadow: 0 0 0 1px #2563eb;
+        }
+        .option-btn.correct { background-color: #d1e7dd !important; border-color: #a3cfbb !important; color: #0f5132 !important; box-shadow: none !important; }
+        .option-btn.incorrect { background-color: #fee2e2 !important; border-color: #ef4444 !important; color: #991b1b !important; box-shadow: none !important; }
+
+        .feedback-text { font-size: 0.95rem; margin-top: 12px; padding: 12px; border-radius: 6px; display: none; }
+        .feedback-text.show-correct { display: block; background-color: #d1e7dd; color: #0f5132; border-left: 4px solid #a3cfbb; }
+        .feedback-text.show-incorrect { display: block; background-color: #fee2e2; color: #991b1b; border-left: 4px solid #ef4444; }
+
+        @media (max-width: 640px) {
+            body { padding: 12px 10px; }
+            .text-container { padding: 20px; }
+            .titulo1 { font-size: 2.25rem; }
+            section { margin-bottom: 20px; }
+        }
+
+        @media print {
+            @media print {
+    body { 
+        font-size: 11pt; 
+        background-color: white !important; 
+        color: black !important; 
+        print-color-adjust: exact;          /* Propiedad estándar */
+        -webkit-print-color-adjust: exact;  /* Prefijo de compatibilidad */
+    }
+    /* ... */
+}
+            .titulo1 { font-size: 18pt; }
+            .titulo2 { font-size: 14pt; }
+            .check-btn-container { display: none; }
+        }
+
+        /* --- Firebase: sesión y guardado --- */
+        .top-bar {
+            max-width: 56rem;
+            margin: 0 auto 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: #64748b;
+        }
+        .top-bar a { color: #64748b; text-decoration: none; }
+        .top-bar a:hover { color: #2563eb; }
+
+        .gate {
+            max-width: 28rem;
+            margin: 0 auto 20px;
+            text-align: center;
+            background-color: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 10px;
+            padding: 14px 20px;
+        }
+        .gate p { margin: 0; font-size: 13.5px; color: #1e3a8a; }
+        .gate a { color: #2563eb; font-weight: 600; text-decoration: underline; }
+
+        .save-status {
+            font-size: 0.9rem;
+            margin-top: 8px;
+            color: #64748b;
+        }
+        .save-status.ok { color: #15803d; }
+        .save-status.error { color: #b91c1c; }
+    </style>
+</head>
+<body>
+
+<div class="top-bar" id="topBar">
+    <span id="sessionInfo">Cargando sesión...</span>
+    <a href="login.html" id="logoutLink" style="display:none;">Cerrar sesión</a>
+</div>
+
+<div id="gateNotice" class="gate" style="display:none;">
+    <p>Puedes hacer este ejercicio libremente. <a href="login.html">Inicia sesión</a> si quieres que tu resultado se guarde en tu progreso.</p>
+</div>
+
+<div id="app">
+<header class="max-w-4xl mx-auto text-center">
+    <img src="https://i.imgur.com/jIUcYJz.png" alt="Logo de Inglés Superior" style="display: block; margin: 1rem auto;">
+    <p class="formula mx-auto p-0" style="width: 30%">MÓDULO: 2</p>
+    <h1 class="titulo1 mt-2 mb-8">Presente simple</h1>
+</header>
+<main class="max-w-4xl mx-auto">
+    <section class="mb-6">
+        <div class="text-container">
+            <h2 class="titulo2 mb-4">Choose the correct option</h2>
+            <p class="text-slate-600">Select the correct option to complete each sentence.</p>
+        </div>
+    </section>
+    <section id="results-section" class="hidden my-12">
+        <div id="results-card" class="text-container text-center border-0 shadow-lg bg-white space-y-3">
+            <div id="score-emoji" class="text-4xl">🚀</div>
+            <h2 class="titulo2 text-slate-800">Test completed!</h2>
+            <p id="score-text-container" class="text-xl font-bold text-slate-800">Correct answers: <span id="score-text">0/10</span></p>
+            <p id="score-percentage-container" class="text-xl font-bold text-slate-800">Your score is <span id="score-percentage">0%</span></p>
+            <div class="save-status" id="saveStatus"></div>
+        </div>
+    </section>
+    <section class="mb-6">
+        <div class="text-container">
+            <form id="quiz-form">
+                <div id="questions-container"></div>
+                <div class="check-btn-container mt-10 text-center">
+                    <button type="button" onclick="checkAnswers()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow transition duration-200">Check Answers</button>
+                    <button type="button" onclick="resetQuiz()" class="ml-4 bg-slate-500 hover:bg-slate-600 text-white font-bold py-3 px-6 rounded-lg shadow transition duration-200">Reset</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</main>
+</div>
+
+<script>
+const data = [
+    {
+        textBefore: "She ",
+        textAfter: " in a hospital on weekends.",
+        options: ["work", "works", "working"],
+        correct: "works",
+        explanation: "In positive sentences with 'he', 'she', or 'it', we add -s the base verb (she works)."
+    },
+    {
+        textBefore: "They ",
+        textAfter: " like coffee in the morning.",
+        options: ["don't", "doesn't", "not"],
+        correct: "don't",
+        explanation: "We use 'don't' (do not) for negative sentences with 'I', 'you', 'we', and 'they'."
+    },
+    {
+        textBefore: "",
+        textAfter: " your brother live in London?",
+        options: ["Do", "Is", "Does"],
+        correct: "Does",
+        explanation: "We use 'does' to start questions with third person singular subjects ('your brother' = 'he')."
+    },
+    {
+        textBefore: "My English teacher ",
+        textAfter: " grammar very clearly.",
+        options: ["teach", "teaches", "teachies"],
+        correct: "teaches",
+        explanation: "Verbs ending in -ch add -es in the third person singular (teach → teaches)."
+    },
+    {
+        textBefore: "He doesn't ",
+        textAfter: " French very well.",
+        options: ["speak", "speaks", "speaking"],
+        correct: "speak",
+        explanation: "After 'doesn't', we use the verb in its base form (he doesn't speak)."
+    },
+    {
+        textBefore: "Where ",
+        textAfter: " you usually buy your groceries?",
+        options: ["does", "do", "are"],
+        correct: "do",
+        explanation: "Questions with 'you' use the auxiliary verb 'do' (Where do you...?)."
+    },
+    {
+        textBefore: "Alex ",
+        textAfter: " every night before going to sleep.",
+        options: ["study", "studys", "studies"],
+        correct: "studies",
+        explanation: "Verbs ending in a consonant + -y change the -y to -ies for 'he/she/it' (study → studies)."
+    },
+    {
+        textBefore: "It ",
+        textAfter: " very often in the summer.",
+        options: ["don't rain", "doesn't rains", "doesn't rain"],
+        correct: "doesn't rain",
+        explanation: "Use 'doesn't' for 'it', followed by the base verb 'rain'."
+    },
+    {
+        textBefore: "What time does the movie ",
+        textAfter: " tonight?",
+        options: ["start", "starts", "starting"],
+        correct: "start",
+        explanation: "In questions with 'do/does', the main verb must always be in base form (Does the movie start...?)."
+    },
+    {
+        textBefore: "My parents ",
+        textAfter: " tennis every Sunday afternoon.",
+        options: ["plays", "play", "playing"],
+        correct: "play",
+        explanation: "For plural subjects like 'my parents' ('they'), use the base verb without adding -s."
+    }
+];
+
+
+    const questionsContainer = document.getElementById('questions-container');
+
+    function initQuiz() {
+        questionsContainer.innerHTML = '';
+        data.forEach((item, index) => {
+            const row = document.createElement('div');
+            row.className = 'question-item';
+            row.setAttribute('data-correct', item.correct);
+            row.setAttribute('data-explanation', item.explanation);
+            let optionsHtml = '';
+            item.options.forEach(option => {
+                optionsHtml += `<button type="button" class="option-btn" onclick="selectOption(this)">${option}</button>`;
+            });
+            row.innerHTML = `
+                <p class="font-medium text-lg mb-3">
+                    <span class="font-bold text-slate-400 mr-2">${index + 1}.</span>
+                    <span>${item.textBefore}</span><span class="blank-line"></span><span>${item.textAfter}</span>
+                </p>
+                <div class="options-container">${optionsHtml}</div>
+                <div class="feedback-text"></div>
+            `;
+            questionsContainer.appendChild(row);
+        });
+        document.getElementById('results-section').classList.add('hidden');
+    }
+
+    function selectOption(button) {
+        const parent = button.parentElement;
+        const buttons = parent.querySelectorAll('.option-btn');
+        buttons.forEach(btn => btn.classList.remove('selected'));
+        button.classList.add('selected');
+    }
+
+    function checkAnswers() {
+        const questions = document.querySelectorAll('.question-item');
+        let totalCorrect = 0;
+        questions.forEach(q => {
+            const correctAnswer = q.getAttribute('data-correct');
+            const explanation = q.getAttribute('data-explanation');
+            const selectedBtn = q.querySelector('.option-btn.selected');
+            const feedback = q.querySelector('.feedback-text');
+            const allBtns = q.querySelectorAll('.option-btn');
+            allBtns.forEach(btn => btn.classList.remove('correct', 'incorrect'));
+            feedback.className = 'feedback-text';
+            if (selectedBtn) {
+                const selectedValue = selectedBtn.innerText.trim();
+                if (selectedValue === correctAnswer) {
+                    selectedBtn.classList.add('correct');
+                    feedback.innerHTML = `<strong>Correct!</strong> Well done.<br><span class="text-sm mt-1 block"><strong>Why?</strong> ${explanation}</span>`;
+                    feedback.classList.add('show-correct');
+                    totalCorrect++;
+                } else {
+                    selectedBtn.classList.add('incorrect');
+                    allBtns.forEach(btn => { if (btn.innerText.trim() === correctAnswer) btn.classList.add('correct'); });
+                    feedback.innerHTML = `<strong>Incorrect.</strong> The correct answer is <strong>"${correctAnswer}"</strong>.<br><span class="text-sm mt-1 block"><strong>Why?</strong> ${explanation}</span>`;
+                    feedback.classList.add('show-incorrect');
+                }
+            } else {
+                feedback.innerHTML = `<strong>Not answered.</strong> The correct answer is <strong>"${correctAnswer}"</strong>.<br><span class="text-sm mt-1 block"><strong>Why?</strong> ${explanation}</span>`;
+                feedback.classList.add('show-incorrect');
+            }
+        });
+        const totalQuestions = questions.length;
+        const percentage = Math.round((totalCorrect / totalQuestions) * 100);
+        document.getElementById('score-text').innerText = `${totalCorrect}/${totalQuestions}`;
+        document.getElementById('score-percentage').innerText = `${percentage}%`;
+        const emojiDisplay = document.getElementById('score-emoji');
+        const resultsCard = document.getElementById('results-card');
+        const scoreTextContainer = document.getElementById('score-text-container');
+        const scorePercentageContainer = document.getElementById('score-percentage-container');
+        if (percentage === 100) {
+            emojiDisplay.innerText = '🏆';
+            emojiDisplay.className = 'text-6xl my-4';
+            resultsCard.className = 'text-container text-center border-0 shadow-lg bg-amber-100 space-y-3';
+            scoreTextContainer.className = 'text-xl font-bold text-amber-700';
+            scorePercentageContainer.className = 'text-xl font-bold text-amber-700';
+            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+        } else {
+            emojiDisplay.innerText = percentage >= 80 ? '🎉' : (percentage >= 50 ? '🚀' : '📚');
+            emojiDisplay.className = 'text-4xl';
+            resultsCard.className = 'text-container text-center border-0 shadow-md bg-white space-y-3';
+            scoreTextContainer.className = 'text-xl font-bold text-slate-800';
+            scorePercentageContainer.className = 'text-xl font-bold text-slate-800';
+        }
+        const resultsSection = document.getElementById('results-section');
+        resultsSection.classList.remove('hidden');
+        window.scrollTo({ top: resultsSection.getBoundingClientRect().top + window.pageYOffset - 40, behavior: 'smooth' });
+
+        // --- Firebase: guardar resultado (solo si hay sesión) ---
+        const saveStatus = document.getElementById('saveStatus');
+        if (window.haySesion && window.haySesion()) {
+            saveStatus.textContent = 'Guardando resultado...';
+            saveStatus.className = 'save-status';
+            window.guardarResultado({
+                modulo: 'm2',
+                ejercicio: 'm2-presente-simple-1',
+                tipo: 'multiple-choice',
+                aciertos: totalCorrect,
+                total: totalQuestions
+            }).then(() => {
+                saveStatus.textContent = 'Resultado guardado ✓';
+                saveStatus.className = 'save-status ok';
+            }).catch((err) => {
+                saveStatus.textContent = 'No se pudo guardar el resultado.';
+                saveStatus.className = 'save-status error';
+                console.error(err);
+            });
+        } else {
+            saveStatus.innerHTML = 'Resultado no guardado. <a href="login.html" style="color:#2563eb; text-decoration:underline;">Inicia sesión</a> para guardar tu progreso.';
+            saveStatus.className = 'save-status';
+        }
+    }
+
+    function resetQuiz() {
+        initQuiz();
+        // Restaurar estilos del contenedor de resultados y subir al tope
+        const resultsCard = document.getElementById('results-card');
+        resultsCard.className = 'text-container text-center border-0 shadow-lg bg-white space-y-3';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    
+    initQuiz();
+</script>
+
+<script type="module">
+    import { observarSesion, guardarResultado, cerrarSesion } from "./firebase-config.js";
+
+    // Se exponen en window para que el <script> clásico de arriba (checkAnswers) las use
+    window.guardarResultado = guardarResultado;
+    let sesionActiva = false;
+    window.haySesion = () => sesionActiva;
+
+    observarSesion((user) => {
+        sesionActiva = !!user;
+        const sessionInfo = document.getElementById('sessionInfo');
+        const logoutLink = document.getElementById('logoutLink');
+        const gateNotice = document.getElementById('gateNotice');
+
+        if (user) {
+            sessionInfo.textContent = user.email;
+            logoutLink.style.display = 'inline';
+            gateNotice.style.display = 'none';
+        } else {
+            sessionInfo.innerHTML = 'Sin sesión — <a href="login.html" style="color:#2563eb;">iniciar sesión</a>';
+            logoutLink.style.display = 'none';
+            gateNotice.style.display = 'block';
+        }
+    });
+
+    document.getElementById('logoutLink').addEventListener('click', async (e) => {
+        e.preventDefault();
+        await cerrarSesion();
+        // Se queda en el mismo ejercicio; observarSesion actualiza la barra y el aviso automáticamente
+    });
+</script>
+</body>
+</html>
