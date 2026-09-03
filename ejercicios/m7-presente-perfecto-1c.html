@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presente perfecto - 1</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <link rel="stylesheet" href="../assets/css/style-ejercicios.css">
+</head>
+<body>
+<header class="max-w-4xl mx-auto text-center">
+    <img src="https://i.imgur.com/jIUcYJz.png" alt="Logo de Inglés Superior" style="display: block; margin: 1rem auto;">
+    <p class="formula mx-auto p-0" style="width: 30%">MÓDULO: 7</p>
+    <h1 class="titulo1 mt-2 mb-8">Presente perfecto</h1>
+</header>
+<main class="max-w-4xl mx-auto">
+    <section class="mb-6">
+        <div class="text-container">
+            <h2 class="titulo2 mb-4">Choose the correct option</h2>
+            <p class="text-slate-600">Select the correct option to complete each sentence.</p>
+        </div>
+    </section>
+    <section id="results-section" class="hidden my-12">
+        <div id="results-card" class="text-container text-center border-0 shadow-lg bg-white space-y-3">
+            <div id="score-emoji" class="text-4xl">🚀</div>
+            <h2 class="titulo2 text-slate-800">Test completed!</h2>
+            <p id="score-text-container" class="text-xl font-bold text-slate-800">Correct answers: <span id="score-text">0/10</span></p>
+            <p id="score-percentage-container" class="text-xl font-bold text-slate-800">Your score is <span id="score-percentage">0%</span></p>
+        </div>
+    </section>
+    <section class="mb-6">
+        <div class="text-container">
+            <form id="quiz-form">
+                <div id="questions-container"></div>
+                <div class="check-btn-container mt-10 text-center">
+                    <button type="button" onclick="checkAnswers()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow transition duration-200">Check Answers</button>
+                    <button type="button" onclick="resetQuiz()" class="ml-4 bg-slate-500 hover:bg-slate-600 text-white font-bold py-3 px-6 rounded-lg shadow transition duration-200">Reset</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</main>
+<script>
+const data = [
+    {
+        textBefore: "I ",
+        textAfter: " my phone number three times this year.",
+        options: ["have changed", "has changed", "have change"],
+        correct: "have changed",
+        explanation: "Use 'I' + 'have' + past participle (change → changed). 'This year' is an unfinished time period, so we use present perfect."
+    },
+    {
+        textBefore: "I lost my glasses this morning. I ",
+        textAfter: " them yet.",
+        options: ["haven't found", "haven't find", "didn't find"],
+        correct: "haven't found",
+        explanation: "Use 'I' + 'haven't' + past participle (find → found). 'Yet' is used in negative sentences with present perfect to show something hasn't happened up to now."
+    },
+    {
+        textBefore: "I ",
+        textAfter: " three emails to them and they still haven't replied.",
+        options: ["'ve been written", "'ve wrote", "'ve written"],
+        correct: "'ve written",
+        explanation: "Use 'I' + 'have' + past participle (write → written). The result is relevant now (they still haven't replied)."
+    },
+    {
+        textBefore: "They ",
+        textAfter: " us the wrong order twice this month.",
+        options: ["has given", "have given", "gave"],
+        correct: "have given",
+        explanation: "Use 'they' + 'have' + past participle (give → given). 'This month' is an unfinished time period."
+    },
+    {
+        textBefore: "Have you ",
+        textAfter: " this movie before? I don't remember.",
+        options: ["saw", "see", "seen"],
+        correct: "seen",
+        explanation: "For questions: 'Have' + subject 'you' + past participle (see → seen). 'Before' is used with present perfect to ask about experiences."
+    },
+    {
+        textBefore: "I ",
+        textAfter: " my best friend since elementary school.",
+        options: ["'ve known", "'ve knew", "been known"],
+        correct: "'ve known",
+        explanation: "Use 'I' + 'have' + past participle (know → known). 'Since' requires present perfect because the action started in the past and continues."
+    },
+    {
+        textBefore: "Rebecca ",
+        textAfter: " first place three times already. She's amazing at this game.",
+        options: ["have gotten", "has gotten", "have got"],
+        correct: "has gotten",
+        explanation: "Use 'she' + 'has' + past participle (get → gotten). 'Already' shows the action happened before now."
+    },
+    {
+        textBefore: "Bill and Charlie ",
+        textAfter: " on similar projects before, so they have experience.",
+        options: ["have worked", "has worked", "worked"],
+        correct: "have worked",
+        explanation: "Use 'they' (Bill and Charlie) + have + past participle (work → worked). 'Before' is used with present perfect to talk about past experiences that are relevant now."
+    },
+    {
+        textBefore: "It seems like I ",
+        textAfter: " his name, but I know I've seen him before.",
+        options: ["'ve forgetten", "'ve forgot", "'ve forgotten"],
+        correct: "'ve forgotten",
+        explanation: "Use 'I' + 'have' + past participle (forget → forgotten). 'It seems like' + present perfect is a very natural way to express a present result (I can't remember his name right now)."
+    },
+    {
+        textBefore: "I'm exhausted. I couldn't sleep last night and I ",
+        textAfter: " at all today.",
+        options: ["hasn't slept", "haven't slept", "haven't sleeped"],
+        correct: "haven't slept",
+        explanation: "Use 'haven't' with 'I' + past participle (sleep → slept). 'Today' is an unfinished time."
+    }
+];
+</script>
+<script src="../assets/js/multiple-choice.js"></script>
+</body>
+</html>

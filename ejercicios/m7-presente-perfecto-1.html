@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presente perfecto - 1</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <link rel="stylesheet" href="../assets/css/style-ejercicios.css">
+</head>
+<body>
+<header class="max-w-4xl mx-auto text-center">
+    <img src="https://i.imgur.com/jIUcYJz.png" alt="Logo de Inglés Superior" style="display: block; margin: 1rem auto;">
+    <p class="formula mx-auto p-0" style="width: 30%">MÓDULO: 7</p>
+    <h1 class="titulo1 mt-2 mb-8">Presente perfecto</h1>
+</header>
+<main class="max-w-4xl mx-auto">
+    <section class="mb-6">
+        <div class="text-container">
+            <h2 class="titulo2 mb-4">Choose the correct option</h2>
+            <p class="text-slate-600">Select the correct option to complete each sentence.</p>
+        </div>
+    </section>
+    <section id="results-section" class="hidden my-12">
+        <div id="results-card" class="text-container text-center border-0 shadow-lg bg-white space-y-3">
+            <div id="score-emoji" class="text-4xl">🚀</div>
+            <h2 class="titulo2 text-slate-800">Test completed!</h2>
+            <p id="score-text-container" class="text-xl font-bold text-slate-800">Correct answers: <span id="score-text">0/10</span></p>
+            <p id="score-percentage-container" class="text-xl font-bold text-slate-800">Your score is <span id="score-percentage">0%</span></p>
+        </div>
+    </section>
+    <section class="mb-6">
+        <div class="text-container">
+            <form id="quiz-form">
+                <div id="questions-container"></div>
+                <div class="check-btn-container mt-10 text-center">
+                    <button type="button" onclick="checkAnswers()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow transition duration-200">Check Answers</button>
+                    <button type="button" onclick="resetQuiz()" class="ml-4 bg-slate-500 hover:bg-slate-600 text-white font-bold py-3 px-6 rounded-lg shadow transition duration-200">Reset</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</main>
+<script>
+const data = [
+    {
+        textBefore: "I ",
+        textAfter: " The Lord of the Rings trilogy five times in my life.",
+        options: ["saw", "has seen", "have seen"],
+        correct: "have seen",
+        explanation: "Use have + verb in past participle (see → seen)."
+    },
+    {
+        textBefore: "She ",
+        textAfter: " never visited Europe.",
+        options: ["have", "has", "did"],
+        correct: "has",
+        explanation: "Use 'has' with 'he/she/it' in present perfect."
+    },
+    {
+        textBefore: "I ",
+        textAfter: " in this city for five years.",
+        options: ["have lived", "has lived", "am living"],
+        correct: "have lived",
+        explanation: "Use have + verb in past participle (live → lived). Use 'for' when it's a period of time ('five years')"
+    },
+    {
+        textBefore: "Have you ",
+        textAfter: " your keys yet?",
+        options: ["find", "found", "finding"],
+        correct: "found",
+        explanation: "Use have/has + verb in past participle (find → found). In questions, the auxiliary comes before the subject. 'Yet' is used in questions to ask if something has happened up to now."
+    },
+    {
+        textBefore: "Tom hasn't ",
+        textAfter: " his room yet.",
+        options: ["clean", "cleaned", "cleaning"],
+        correct: "cleaned",
+        explanation: "Use has (Tom = he) + verb in past participle (clean → cleaned). 'Yet' is used in negative sentences to show that something hasn't happened up to now."
+    },
+    {
+        textBefore: "She ",
+        textAfter: " already finished her report.",
+        options: ["has", "have", "did"],
+        correct: "has",
+        explanation: "Use 'has' with 'he/she/it' in present perfect. 'Already' shows that something has happened before now or sooner than expected."
+    },
+    {
+        textBefore: "Have you ever ",
+        textAfter: " authentic sushi?",
+        options: ["eat", "ate", "eaten"],
+        correct: "eaten",
+        explanation: "Use have + verb in past participle (eat → eaten). In questions, the auxiliary comes before the subject. 'Ever' is used in questions to ask about experience at any time up to now."
+    },
+    {
+        textBefore: "How many documentaries ",
+        textAfter: " this year?",
+        options: ["have you watched", "have you watch", "did you watch"],
+        correct: "have you watched",
+        explanation: "Use have + verb in past participle (watch → watched). In questions, the auxiliary comes before the subject."
+    },
+    {
+        textBefore: "I haven't ",
+        textAfter: " the new Stephen King book yet.",
+        options: ["read", "readed", "reads"],
+        correct: "read",
+        explanation: "Use have + verb in past participle (read → read). Note that 'read' has the same spelling, but the pronunciation changes."
+    },
+    {
+        textBefore: "How long ",
+        textAfter: " you lived here?",
+        options: ["has", "did", "have"],
+        correct: "have",
+        explanation: "Use have + verb in past participle (live → lived). In questions, the auxiliary comes before the subject."
+    }
+];
+</script>
+<script src="../assets/js/multiple-choice.js"></script>
+</body>
+</html>

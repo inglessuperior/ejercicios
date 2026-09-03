@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presente perfecto - 1</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <link rel="stylesheet" href="../assets/css/style-ejercicios.css">
+</head>
+<body>
+<header class="max-w-4xl mx-auto text-center">
+    <img src="https://i.imgur.com/jIUcYJz.png" alt="Logo de Inglés Superior" style="display: block; margin: 1rem auto;">
+    <p class="formula mx-auto p-0" style="width: 30%">MÓDULO: 7</p>
+    <h1 class="titulo1 mt-2 mb-8">Presente perfecto</h1>
+</header>
+<main class="max-w-4xl mx-auto">
+    <section class="mb-6">
+        <div class="text-container">
+            <h2 class="titulo2 mb-4">Choose the correct option</h2>
+            <p class="text-slate-600">Select the correct option to complete each sentence.</p>
+        </div>
+    </section>
+    <section id="results-section" class="hidden my-12">
+        <div id="results-card" class="text-container text-center border-0 shadow-lg bg-white space-y-3">
+            <div id="score-emoji" class="text-4xl">🚀</div>
+            <h2 class="titulo2 text-slate-800">Test completed!</h2>
+            <p id="score-text-container" class="text-xl font-bold text-slate-800">Correct answers: <span id="score-text">0/10</span></p>
+            <p id="score-percentage-container" class="text-xl font-bold text-slate-800">Your score is <span id="score-percentage">0%</span></p>
+        </div>
+    </section>
+    <section class="mb-6">
+        <div class="text-container">
+            <form id="quiz-form">
+                <div id="questions-container"></div>
+                <div class="check-btn-container mt-10 text-center">
+                    <button type="button" onclick="checkAnswers()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow transition duration-200">Check Answers</button>
+                    <button type="button" onclick="resetQuiz()" class="ml-4 bg-slate-500 hover:bg-slate-600 text-white font-bold py-3 px-6 rounded-lg shadow transition duration-200">Reset</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</main>
+<script>
+const data = [
+    {
+        textBefore: "My manager ",
+        textAfter: " me two warnings so far this week.",
+        options: ["has given", "have given", "has gave"],
+        correct: "has given",
+        explanation: "Use 'has' with 'my manager' (he/she) + past participle of 'give' → 'given'. 'So far this week' is an unfinished time period, so we use present perfect."
+    },
+    {
+        textBefore: "I ",
+        textAfter: " a bone despite playing lots of sports.",
+        options: ["never broke", "'ve never broke", "'ve never broken"],
+        correct: "'ve never broken",
+        explanation: "Use 'have' with 'I' + 'never' + past participle (break → broken). 'Never' is used with present perfect to talk about experiences up to now. 'Despite playing lots of sports' sets the context of an experience up to the present."
+    },
+    {
+        textBefore: "How long ",
+        textAfter: " English at this academy?",
+        options: ["have you studied", "has you studied", "you have studied"],
+        correct: "have you studied",
+        explanation: "For questions: 'How long' + 'have' + subject 'you' + past participle (study → studied). 'How long' asks about duration from past to now."
+    },
+    {
+        textBefore: "My grandmother ",
+        textAfter: " her hair short since the 80s.",
+        options: ["has cut", "has cutted", "cut"],
+        correct: "has cut",
+        explanation: "Use 'has' with 'my grandmother' (she) + past participle (cut → cut). 'Since' indicates that the action started in the past and continues to now."
+    },
+    {
+        textBefore: "Have you ",
+        textAfter: " dinner yet? I'm starving!",
+        options: ["had", "have", "has"],
+        correct: "had",
+        explanation: "For questions: 'Have' + subject 'you' + past participle (have → had). 'Yet' in questions asks if something has happened up to now."
+    },
+    {
+        textBefore: "I ",
+        textAfter: " durian in my entire life. I'm curious to try it!",
+        options: ["never tried", "have never tried", "has never tried"],
+        correct: "have never tried",
+        explanation: "Use 'have' with 'I' + 'never' + past participle (try → tried). 'Never' is used with present perfect to talk about experiences up to now. 'In my entire life' is an unfinished time period."
+    },
+    {
+        textBefore: "I ",
+        textAfter: " my new boss yet. She started yesterday.",
+        options: ["haven't met", "hasn't met", "didn't meet"],
+        correct: "haven't met",
+        explanation: "Use 'haven't' with 'I' + past participle (meet → met). 'Yet' in negative sentences shows something hasn't happened up to now."
+    },
+    {
+        textBefore: "Have your parents ",
+        textAfter: " back from their trip to Japan?",
+        options: ["came", "come", "comes"],
+        correct: "come",
+        explanation: "Question with 'Have' + subject 'your parents' (they) + past participle of 'come' → 'come' (irregular, same form)."
+    },
+    {
+        textBefore: "We ",
+        textAfter: " in this neighborhood since 2018.",
+        options: ["have lived", "are living", "has lived"],
+        correct: "have lived",
+        explanation: "Use 'have' with 'we' + past participle (live → lived). 'Since + a point in time' (2018) is used with present perfect for actions that started in the past and continue."
+    },
+    {
+        textBefore: "Have you ",
+        textAfter: " to a conference about bugs before?",
+        options: ["ever been", "never been", "yet been"],
+        correct: "ever been",
+        explanation: "Question with 'Have' + subject 'you' + 'ever' + past participle (be → been). 'Ever' asks about experience at any time in your life."
+    },
+];
+</script>
+<script src="../assets/js/multiple-choice.js"></script>
+</body>
+</html>
