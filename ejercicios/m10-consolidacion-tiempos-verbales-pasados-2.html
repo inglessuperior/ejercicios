@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pasado simple vs continuo vs perfecto</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <link rel="stylesheet" href="../assets/css/style-ejercicios.css">
+</head>
+<body>
+
+<header class="max-w-4xl mx-auto text-center">
+    <img src="../assets/img/logo.png" class="imagen1" alt="Logo de Inglés Superior" style="display: block; margin: 1rem auto;">
+    <p class="formula mx-auto p-0" style="width: 30%">MÓDULO: 10</p>
+    <h1 class="titulo1 mt-2 mb-8">Pasado simple vs continuo vs perfecto</h1>
+</header>
+
+<main class="max-w-4xl mx-auto">
+
+    <section class="mb-6">
+        <div class="text-container">
+            <h2 class="titulo2 mb-4">Drag and drop</h2>
+            <p class="text-slate-600">Drag the correct words from the word bank and drop them to complete the story.</p>
+        </div>
+    </section>
+
+    <section id="results-section" class="hidden my-12">
+        <div id="results-card" class="text-container text-center border-0 shadow-lg bg-white space-y-3">
+            <div id="score-emoji" class="text-4xl">🚀</div>
+            <h2 class="titulo2 text-slate-800">Test completed!</h2>
+            <p id="score-text-container" class="text-xl font-bold text-slate-600">Correct answers: <span id="score-text">0/10</span></p>
+            <p id="score-percentage-container" class="text-xl font-bold text-slate-600">Your score is <span id="score-percentage">0%</span></p>
+        </div>
+    </section>
+
+    <section class="mb-6">
+        <div class="text-container">
+
+            <!-- Word Bank -->
+            <div class="mb-6 p-3 bg-slate-50 border border-slate-200 rounded-xl">
+                <p class="text-xs font-bold text-slate-700 mb-2 text-center uppercase tracking-wider">Word Bank</p>
+                <div id="word-bank" class="flex flex-wrap gap-2 justify-center min-h-[50px] p-1">
+                </div>
+            </div>
+
+            <!-- Story -->
+            <div id="sentences-container">
+            </div>
+
+            <!-- Buttons -->
+            <div class="check-btn-container mt-8 text-center">
+                <button type="button" onclick="checkAnswers()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow transition duration-200">
+                    Check Answers
+                </button>
+                <button type="button" onclick="resetQuiz()" class="ml-4 bg-slate-500 hover:bg-slate-600 text-white font-bold py-3 px-6 rounded-lg shadow transition duration-200">
+                    Reset
+                </button>
+            </div>
+
+        </div>
+    </section>
+</main>
+
+<script>
+// ============================================================
+// 1. HISTORIA DE SARAH (TODAS LAS RESPUESTAS EN PASADO)
+// ============================================================
+window.story = {
+    parts: [
+        { type: "text", content: "Sarah had a busy day yesterday. She woke up late because she had forgotten to set her alarm. She quickly got dressed and " },
+        { type: "drop", id: 1, answer: "ran", explanation: "Use simple past for a completed action at a specific time in the past." },
+        { type: "text", content: " to the kitchen. While she " },
+        { type: "drop", id: 2, answer: "was making", explanation: "Use past continuous (was/were + -ing) for an action in progress." },
+        { type: "text", content: " breakfast, she checked her phone and saw a message from her boss. He " },
+        { type: "drop", id: 3, answer: "had sent", explanation: "Use past perfect (had + past participle) for an action completed before another past action." },
+        { type: "text", content: " an email asking for a report. She " },
+        { type: "drop", id: 4, answer: "finished", explanation: "Use simple past for a completed action at a specific time in the past." },
+        { type: "text", content: " her breakfast and left for work. When she arrived, she realized she " },
+        { type: "drop", id: 5, answer: "had left", explanation: "Use past perfect (had + past participle) for an action completed before another past action." },
+        { type: "text", content: " her laptop at home. She called her husband, who " },
+        { type: "drop", id: 6, answer: "was working", explanation: "Use past continuous (was/were + -ing) for an action in progress." },
+        { type: "text", content: " from home, and asked him to bring it. He " },
+        { type: "drop", id: 7, answer: "arrived", explanation: "Use simple past for a completed action at a specific time in the past." },
+        { type: "text", content: " at her office an hour later. Sarah " },
+        { type: "drop", id: 8, answer: "felt", explanation: "Use simple past for a completed action at a specific time in the past." },
+        { type: "text", content: " relieved and thanked him. She finally " },
+        { type: "drop", id: 9, answer: "started", explanation: "Use simple past for a completed action at a specific time in the past." },
+        { type: "text", content: " working at 10 AM. By the time she " },
+        { type: "drop", id: 10, answer: "finished", explanation: "Use simple past for a completed action at a specific time in the past." },
+        { type: "text", content: " her work, she was exhausted but happy." }
+    ]
+};
+
+// ============================================================
+// 2. DATA (extraído de la historia)
+// ============================================================
+window.data = window.story.parts
+    .filter(p => p.type === "drop")
+    .map((p, index) => ({
+        id: p.id,
+        answer: p.answer,
+        explanation: p.explanation
+    }));
+
+// ============================================================
+// 3. DISTRACTORS (5 extra words - all past tense)
+// ============================================================
+window.distractors = [
+    { id: 11, text: "was running" },
+    { id: 12, text: "has sent" },
+    { id: 13, text: "were working" },
+    { id: 14, text: "have left" },
+    { id: 15, text: "was starting" }
+];
+</script>
+
+<script src="../assets/js/drag-and-drop.js"></script>
+
+</body>
+</html>

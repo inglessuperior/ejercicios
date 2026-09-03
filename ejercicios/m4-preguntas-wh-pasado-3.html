@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preguntas wh- en pasado - 3</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Librería de Confeti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <link rel="stylesheet" href="../assets/css/style-ejercicios.css">
+</head>
+<body>
+
+<header class="max-w-4xl mx-auto text-center">
+    <img src="../assets/img/logo.png" class="imagen1" alt="Logo de Inglés Superior" style="display: block; margin: 1rem auto;">
+    <p class="formula mx-auto p-0" style="width: 30%">MÓDULO: 4</p>
+    <h1 class="titulo1 mt-2 mb-8">Preguntas wh- en pasado</h1>
+</header>
+
+<main class="max-w-4xl mx-auto">
+
+    <!-- Cuadro independiente para Instrucciones -->
+    <section class="mb-6">
+        <div class="text-container">
+            <h2 class="titulo2 mb-4">Complete the sentences</h2>
+            <p class="text-slate-600">Write the missing words to complete the sentences in past tense.</p>
+        </div>
+    </section>
+
+    <!-- Contenedor para el resultado superior -->
+    <section id="results-section" class="hidden my-12">
+        <div id="results-card" class="text-container text-center border-0 shadow-lg bg-white space-y-3">
+            <div id="score-emoji" class="text-4xl">🚀</div>
+            <h2 class="titulo2 text-slate-800">Test completed!</h2>
+            <p id="score-text-container" class="text-xl font-bold text-slate-600">Correct answers: <span id="score-text">0/10</span></p>
+            <p id="score-percentage-container" class="text-xl font-bold text-slate-600">Your score is <span id="score-percentage">0%</span></p>
+        </div>
+    </section>
+
+    <!-- Cuadro independiente para el Ejercicio -->
+    <section class="mb-6">
+        <div class="text-container">
+
+            <!-- Lista de Oraciones -->
+            <div id="sentences-container">
+                <!-- Oraciones inyectadas por JS -->
+            </div>
+
+            <!-- Botones de Acción -->
+            <div class="check-btn-container mt-8 text-center">
+                <button type="button" onclick="checkAnswers()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow transition duration-200">
+                    Check Answers
+                </button>
+                <button type="button" onclick="resetQuiz()" class="ml-4 bg-slate-500 hover:bg-slate-600 text-white font-bold py-3 px-6 rounded-lg shadow transition duration-200">
+                    Reset
+                </button>
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+<script>
+const data = [
+    { 
+        id: 1, 
+        parts: [
+            { type: "input", answer: "Where" },
+            { type: "hint", content: "(place)" },
+            { type: "text", content: " did you go last weekend? To check out a new coffee shop." }
+        ],
+        explanation: "The answer indicates a place ('a new coffee shop'), so the correct wh- word is 'where'." 
+    },
+    { 
+        id: 2, 
+        parts: [
+            { type: "text", content: "Why " },
+            { type: "input", answer: "did she leave" },
+            { type: "hint", content: "(she / leave)" },
+            { type: "text", content: " the party so early?" }
+        ],
+        explanation: "The question is formed using 'did', subject, and base verb after the wh- word." 
+    },
+    { 
+        id: 3, 
+        parts: [
+            { type: "input", answer: "When" },
+            { type: "hint", content: "(time)" },
+            { type: "text", content: " was your dentist appointment? It was last Monday." }
+        ],
+        explanation: "The answer talks about a point in time, so we use 'when'." 
+    },
+    { 
+        id: 4, 
+        parts: [
+            { type: "text", content: "Who " },
+            { type: "input", answer: "did you meet" },
+            { type: "hint", content: "(you / meet)" },
+            { type: "text", content: " at the office yesterday?" }
+        ],
+        explanation: "Use 'did you meet' after the wh- word to ask about a past action involving a person." 
+    },
+    { 
+        id: 5, 
+        parts: [
+            { type: "input", answer: "Why" },
+            { type: "hint", content: "(reason)" },
+            { type: "text", content: " did they buy a new car? Because they needed it for work." }
+        ],
+        explanation: "The answer starts with 'because', which means we are asking for a reason using 'why'." 
+    },
+    { 
+        id: 6, 
+        parts: [
+            { type: "text", content: "How " },
+            { type: "input", answer: "did he solve" },
+            { type: "hint", content: "(he / solve)" },
+            { type: "text", content: " the math problem?" }
+        ],
+        explanation: "The question is formed using 'did', subject, and base verb after the wh- word." 
+    },
+    { 
+        id: 7, 
+        parts: [
+            { type: "input", answer: "What" },
+            { type: "hint", content: "(thing)" },
+            { type: "text", content: " did you eat for breakfast this morning? Eggs and toast." }
+        ],
+        explanation: "The answer mentions an object or food, so the correct wh- word is 'what'." 
+    },
+    { 
+        id: 8, 
+        parts: [
+            { type: "text", content: "Who " },
+            { type: "input", answer: "was your" },
+            { type: "hint", content: "(your / be)" },
+            { type: "text", content: " favorite teacher in high school?" }
+        ],
+        explanation: "Use 'who was your' to ask about someone that was something to you." 
+    },
+    { 
+        id: 9, 
+        parts: [
+            { type: "input", answer: "Where" },
+            { type: "hint", content: "(location)" },
+            { type: "text", content: " were you born? I was born in Mexico." }
+        ],
+        explanation: "The answer mentions a location and the verb 'to be', so we ask with 'where' + verb 'to be'." 
+    },
+    { 
+        id: 10, 
+        parts: [
+            { type: "text", content: "What time " },
+            { type: "input", answer: "did you wake" },
+            { type: "hint", content: "(you / wake)" },
+            { type: "text", content: " up this morning?" }
+        ],
+        explanation: "The question is formed using 'did', subject, and base verb after 'what time' to ask for a particular time." 
+    }
+];
+</script>
+<script src="../assets/js/fill-in-the-blanks.js"></script>
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pasado simple - 3</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Librería de Confeti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <link rel="stylesheet" href="../assets/css/style-ejercicios.css">
+</head>
+<body>
+
+<header class="max-w-4xl mx-auto text-center">
+    <img src="../assets/img/logo.png" class="imagen1" alt="Logo de Inglés Superior" style="display: block; margin: 1rem auto;">
+    <p class="formula mx-auto p-0" style="width: 30%">MÓDULO: 4</p>
+    <h1 class="titulo1 mt-2 mb-8">Pasado simple</h1>
+</header>
+
+<main class="max-w-4xl mx-auto">
+
+    <!-- Cuadro independiente para Instrucciones -->
+    <section class="mb-6">
+        <div class="text-container">
+            <h2 class="titulo2 mb-4">Complete the sentences</h2>
+            <p class="text-slate-600">Write the missing words to complete the sentences in past tense.</p>
+        </div>
+    </section>
+
+    <!-- Contenedor para el resultado superior -->
+    <section id="results-section" class="hidden my-12">
+        <div id="results-card" class="text-container text-center border-0 shadow-lg bg-white space-y-3">
+            <div id="score-emoji" class="text-4xl">🚀</div>
+            <h2 class="titulo2 text-slate-800">Test completed!</h2>
+            <p id="score-text-container" class="text-xl font-bold text-slate-600">Correct answers: <span id="score-text">0/10</span></p>
+            <p id="score-percentage-container" class="text-xl font-bold text-slate-600">Your score is <span id="score-percentage">0%</span></p>
+        </div>
+    </section>
+
+    <!-- Cuadro independiente para el Ejercicio -->
+    <section class="mb-6">
+        <div class="text-container">
+
+            <!-- Lista de Oraciones -->
+            <div id="sentences-container">
+                <!-- Oraciones inyectadas por JS -->
+            </div>
+
+            <!-- Botones de Acción -->
+            <div class="check-btn-container mt-8 text-center">
+                <button type="button" onclick="checkAnswers()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow transition duration-200">
+                    Check Answers
+                </button>
+                <button type="button" onclick="resetQuiz()" class="ml-4 bg-slate-500 hover:bg-slate-600 text-white font-bold py-3 px-6 rounded-lg shadow transition duration-200">
+                    Reset
+                </button>
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+<script>
+const data = [
+    { 
+        id: 1, 
+        parts: [
+            { type: "text", content: "They " },
+            { type: "input", answer: "found" },
+            { type: "hint", content: "(find)" },
+            { type: "text", content: " their lost keys under the couch." }
+        ],
+        explanation: "The past form of 'find' is the irregular verb 'found'." 
+    },
+    { 
+        id: 2, 
+        parts: [
+            { type: "text", content: "Karla " },
+            { type: "input", answer: "danced" },
+            { type: "hint", content: "(dance)" },
+            { type: "text", content: " a lot at the party last night." }
+        ],
+        explanation: "For regular verbs ending in 'e', add '-d' to form the simple past ('danced')." 
+    },
+    { 
+        id: 3, 
+        parts: [
+            { type: "text", content: "We " },
+            { type: "input", answer: ["didn't work", "did not work"] },
+            { type: "hint", content: "(not / work)" },
+            { type: "text", content: " on the project yesterday." }
+        ],
+        explanation: "Use 'didn't' (didn't work) for negative sentences in simple past." 
+    },
+    { 
+        id: 4, 
+        parts: [
+            { type: "text", content: "What " },
+            { type: "input", answer: "did" },
+            { type: "text", content: " you " },
+            { type: "input", answer: "say" },
+            { type: "hint", content: "(say)" },
+            { type: "text", content: " during the meeting?" }
+        ],
+        explanation: "Wh- questions in simple past use 'did' followed by the subject and the base form of the verb (say)." 
+    },
+    { 
+        id: 5, 
+        parts: [
+            { type: "text", content: "They " },
+            { type: "input", answer: "weren't" },
+            { type: "hint", content: "(not / be)" },
+            { type: "text", content: " happy with the restaurant service." }
+        ],
+        explanation: "Use 'weren't' (were not) as the past form of the verb 'to be' for plural subjects ('they')." 
+    },
+    { 
+        id: 6, 
+        parts: [
+            { type: "text", content: "He " },
+            { type: "input", answer: "drank" },
+            { type: "hint", content: "(drink)" },
+            { type: "text", content: " two cups of tea this morning." }
+        ],
+        explanation: "'Drank' is the simple past form of 'drink'." 
+    },
+    { 
+        id: 7, 
+        parts: [
+            { type: "text", content: "The bus " },
+            { type: "input", answer: "stopped" },
+            { type: "hint", content: "(stop)" },
+            { type: "text", content: " in front of the station." }
+        ],
+        explanation: "For short regular verbs ending in a consonant-vowel-consonant, double the final consonant and add '-ed' ('stopped')." 
+    },
+    { 
+        id: 8, 
+        parts: [
+            { type: "text", content: "I " },
+            { type: "input", answer: ["didn't know", "did not know"] },
+            { type: "hint", content: "(not / know)" },
+            { type: "text", content: " the answer to the question." }
+        ],
+        explanation: "Use 'didn't' for negative sentences in simple past, keeping the main verb in its base form." 
+    },
+    { 
+        id: 9, 
+        parts: [
+            { type: "input", answer: "Were" },
+            { type: "hint", content: "(be)" },
+            { type: "text", content: " you at home last night?" }
+        ],
+        explanation: "Start simple past questions with the verb 'to be' using 'were' for the subject 'you'." 
+    },
+    { 
+        id: 10, 
+        parts: [
+            { type: "text", content: "Linda " },
+            { type: "input", answer: "wrote" },
+            { type: "hint", content: "(write)" },
+            { type: "text", content: " a beautiful letter to her friend." }
+        ],
+        explanation: "'Wrote' is the simple past form of 'write'." 
+    }
+];
+</script>
+<script src="../assets/js/fill-in-the-blanks.js"></script>
+</body>
+</html>

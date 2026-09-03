@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estructura para presentaciones - 1</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <link rel="stylesheet" href="../assets/css/style-ejercicios.css">
+    <style>
+        /* Ajuste específico de esta página: este ejercicio no usa blank-line */
+        .blank-line { display: none; }
+    </style>
+</head>
+<body>
+<header class="max-w-4xl mx-auto text-center">
+    <img src="../assets/img/logo.png" class="imagen1" alt="Logo de Inglés Superior" style="display: block; margin: 1rem auto;">
+    <p class="formula mx-auto p-0" style="width: 30%">MÓDULO: 10</p>
+    <h1 class="titulo1 mt-2 mb-8">Estructura para presentaciones</h1>
+</header>
+<main class="max-w-4xl mx-auto">
+    <section class="mb-6">
+        <div class="text-container">
+            <h2 class="titulo2 mb-4">Identify the purpose</h2>
+            <p class="text-slate-600">Read the following phrases and select their correct function.</p>
+        </div>
+    </section>
+    <section id="results-section" class="hidden my-12">
+        <div id="results-card" class="text-container text-center border-0 shadow-lg bg-white space-y-3">
+            <div id="score-emoji" class="text-4xl">🚀</div>
+            <h2 class="titulo2 text-slate-800">Test completed!</h2>
+            <p id="score-text-container" class="text-xl font-bold text-slate-800">Correct answers: <span id="score-text">0/10</span></p>
+            <p id="score-percentage-container" class="text-xl font-bold text-slate-800">Your score is <span id="score-percentage">0%</span></p>
+        </div>
+    </section>
+    <section class="mb-6">
+        <div class="text-container">
+            <form id="quiz-form">
+                <div id="questions-container"></div>
+                <div class="check-btn-container mt-10 text-center">
+                    <button type="button" onclick="checkAnswers()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow transition duration-200">Check Answers</button>
+                    <button type="button" onclick="resetQuiz()" class="ml-4 bg-slate-500 hover:bg-slate-600 text-white font-bold py-3 px-6 rounded-lg shadow transition duration-200">Reset</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</main>
+<script>
+const data = [
+    {
+        textBefore: `What is the purpose of this phrase?<span class="block mt-3 mb-1 p-4 bg-blue-50 border border-blue-100 rounded-lg text-blue-800 font-semibold text-xl shadow-sm">"Let me introduce myself. My name is..."</span>`,
+        textAfter: "",
+        options: ["To state the main topic of the meeting", "To give a personal introduction", "To transition to the next section"],
+        correct: "To give a personal introduction",
+        explanation: "Used during the Introduction to let the audience know who you are and what your role is."
+    },
+    {
+        textBefore: `What is the purpose of this phrase?<span class="block mt-3 mb-1 p-4 bg-blue-50 border border-blue-100 rounded-lg text-blue-800 font-semibold text-xl shadow-sm">"Today, I'd like to talk about..."</span>`,
+        textAfter: "",
+        options: ["To summarize the presentation", "To handle questions from the audience", "To mention the main topic or purpose"],
+        correct: "To mention the main topic or purpose",
+        explanation: "This is the most standard and polite way to declare the subject of your presentation during the opening."
+    },
+    {
+        textBefore: `What is the purpose of this phrase?<span class="block mt-3 mb-1 p-4 bg-blue-50 border border-blue-100 rounded-lg text-blue-800 font-semibold text-xl shadow-sm">"Let's start with..."</span>`,
+        textAfter: "",
+        options: ["To conclude the presentation", "To introduce the first main point in the 'body'", "To ask the audience a question"],
+        correct: "To introduce the first main point in the 'body'",
+        explanation: "A great transition phrase to officially begin the 'Body' of your presentation."
+    },
+    {
+        textBefore: `What is the purpose of this phrase?<span class="block mt-3 mb-1 p-4 bg-blue-50 border border-blue-100 rounded-lg text-blue-800 font-semibold text-xl shadow-sm">"As you can see in this slide..."</span>`,
+        textAfter: "",
+        options: ["To direct the audience's attention to visual evidence", "To apologize for a mistake", "To review the key points"],
+        correct: "To direct the audience's attention to visual evidence",
+        explanation: "Used when you want your audience to look at the screen or projector."
+    },
+    {
+        textBefore: `What is the purpose of this phrase?<span class="block mt-3 mb-1 p-4 bg-blue-50 border border-blue-100 rounded-lg text-blue-800 font-semibold text-xl shadow-sm">"This brings me to my next point."</span>`,
+        textAfter: "",
+        options: ["To finish answering a question", "To end the meeting", "To transition between sections"],
+        correct: "To transition between sections",
+        explanation: "A transition phrase to connect an idea to the next one without awkward pauses."
+    },
+    {
+        textBefore: `What is the purpose of this phrase?<span class="block mt-3 mb-1 p-4 bg-blue-50 border border-blue-100 rounded-lg text-blue-800 font-semibold text-xl shadow-sm">"To sum up..."</span>`,
+        textAfter: "",
+        options: ["To review the key points", "To present new information", "To welcome the audience"],
+        correct: "To review the key points",
+        explanation: "Used at the beginning of the conclusion to let the audience know you are summarizing the main points."
+    },
+    {
+        textBefore: `What is the purpose of this phrase?<span class="block mt-3 mb-1 p-4 bg-blue-50 border border-blue-100 rounded-lg text-blue-800 font-semibold text-xl shadow-sm">"I'm happy to answer any questions."</span>`,
+        textAfter: "",
+        options: ["To summarize the presentation", "To close the presentation", "To invite the audience to start the Q&A"],
+        correct: "To invite the audience to start the Q&A",
+        explanation: "This phrase encourages participation and officially opens the Q&A segment."
+    },
+    {
+        textBefore: `What is the purpose of this phrase?<span class="block mt-3 mb-1 p-4 bg-blue-50 border border-blue-100 rounded-lg text-blue-800 font-semibold text-xl shadow-sm">"That's a great question."</span>`,
+        textAfter: "",
+        options: ["To invite the audience to ask questions", "To validate and acknowledge a question", "To ask the audience something"],
+        correct: "To validate and acknowledge a question",
+        explanation: "A good way to make the person who asked the question feel heard before you respond."
+    },
+    {
+        textBefore: `What is the purpose of this phrase?<span class="block mt-3 mb-1 p-4 bg-blue-50 border border-blue-100 rounded-lg text-blue-800 font-semibold text-xl shadow-sm">"I'll get back to you on that."</span>`,
+        textAfter: "",
+        options: ["When you want to repeat the question", "When you need to verify information and respond later", "When you'll answer the question at the end"],
+        correct: "When you need to verify information and respond later",
+        explanation: "A professional way to handle a question when you don't know the exact answer."
+    },
+    {
+        textBefore: `What is the purpose of this phrase?<span class="block mt-3 mb-1 p-4 bg-blue-50 border border-blue-100 rounded-lg text-blue-800 font-semibold text-xl shadow-sm">"I apologize for the technical difficulties."</span>`,
+        textAfter: "",
+        options: ["To handle unexpected technological issues", "To reject a question", "To explain a complex slide"],
+        correct: "To handle unexpected technological issues",
+        explanation: "The best phrase to use if something goes wrong (your presentation doesn't load, the audio fails, etc)."
+    }
+];
+</script>
+<script src="../assets/js/multiple-choice.js"></script>
+</body>
+</html>

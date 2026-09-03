@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colocaciones comunes - 3</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Librería de Confeti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <link rel="stylesheet" href="../assets/css/style-ejercicios.css">
+</head>
+<body>
+
+<header class="max-w-4xl mx-auto text-center">
+    <img src="../assets/img/logo.png" class="imagen1" alt="Logo de Inglés Superior" style="display: block; margin: 1rem auto;">
+    <p class="formula mx-auto p-0" style="width: 30%">MÓDULO: 10</p>
+    <h1 class="titulo1 mt-2 mb-8">Colocaciones comunes</h1>
+</header>
+
+<main class="max-w-4xl mx-auto">
+
+    <!-- Cuadro independiente para Instrucciones -->
+    <section class="mb-6">
+        <div class="text-container">
+            <h2 class="titulo2 mb-4">Complete the sentences</h2>
+            <p class="text-slate-600">Write the missing words to complete the common collocations correctly.</p>
+        </div>
+    </section>
+
+    <!-- Contenedor para el resultado superior -->
+    <section id="results-section" class="hidden my-12">
+        <div id="results-card" class="text-container text-center border-0 shadow-lg bg-white space-y-3">
+            <div id="score-emoji" class="text-4xl">🚀</div>
+            <h2 class="titulo2 text-slate-800">Test completed!</h2>
+            <p id="score-text-container" class="text-xl font-bold text-slate-600">Correct answers: <span id="score-text">0/10</span></p>
+            <p id="score-percentage-container" class="text-xl font-bold text-slate-600">Your score is <span id="score-percentage">0%</span></p>
+        </div>
+    </section>
+
+    <!-- Cuadro independiente para el Ejercicio -->
+    <section class="mb-6">
+        <div class="text-container">
+
+            <!-- Lista de Oraciones -->
+            <div id="sentences-container">
+                <!-- Oraciones inyectadas por JS -->
+            </div>
+
+            <!-- Botones de Acción -->
+            <div class="check-btn-container mt-8 text-center">
+                <button type="button" onclick="checkAnswers()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow transition duration-200">
+                    Check Answers
+                </button>
+                <button type="button" onclick="resetQuiz()" class="ml-4 bg-slate-500 hover:bg-slate-600 text-white font-bold py-3 px-6 rounded-lg shadow transition duration-200">
+                    Reset
+                </button>
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+<script>
+const data = [
+    { 
+        id: 1, 
+        parts: [
+            { type: "text", content: "Diagnosing a " },
+            { type: "input", answer: "serious illness" },
+            { type: "hint", content: "(enfermedad grave)" },
+            { type: "text", content: " early can save a patient's life." }
+        ],
+        explanation: "The standard collocation for a severe medical condition is 'serious illness'. 'Severe illness' is correct but more technical and less common, and 'grave illness' is literary and a little outdated." 
+    },
+    { 
+        id: 2, 
+        parts: [
+            { type: "text", content: "We need a " },
+            { type: "input", answer: "fast internet" },
+            { type: "hint", content: "(internet rápido)" },
+            { type: "text", content: " connection to watch Netflix." }
+        ],
+        explanation: "We use 'fast internet' for high-speed internet." 
+    },
+    { 
+        id: 3, 
+        parts: [
+            { type: "text", content: "Eating too much " },
+            { type: "input", answer: "fast food" },
+            { type: "hint", content: "(comida rápida)" },
+            { type: "text", content: " is bad for your health." }
+        ],
+        explanation: "Quickly prepared commercial meals are 'fast food'." 
+    },
+    { 
+        id: 4, 
+        parts: [
+            { type: "text", content: "Ignoring safety regulations is a " },
+            { type: "input", answer: "serious problem" },
+            { type: "hint", content: "(problema serio)" },
+            { type: "text", content: " for the company." }
+        ],
+        explanation: "For problems of significant importance, we use 'serious problem'." 
+    },
+    { 
+        id: 5, 
+        parts: [
+            { type: "text", content: "Procrastination is a " },
+            { type: "input", answer: "common problem" },
+            { type: "hint", content: "(problema común)" },
+            { type: "text", content: " for college students." }
+        ],
+        explanation: "A problem that occurs frequently for many people is a 'common problem'." 
+    },
+    { 
+        id: 6, 
+        parts: [
+            { type: "text", content: "Teamwork is a " },
+            { type: "input", answer: "key factor" },
+            { type: "hint", content: "(factor clave)" },
+            { type: "text", content: " in completing difficult projects." }
+        ],
+        explanation: "An essential element in something is called a 'key factor'." 
+    },
+    { 
+        id: 7, 
+        parts: [
+            { type: "text", content: "We ran out of money, that's the " },
+            { type: "input", answer: "main reason" },
+            { type: "hint", content: "(razón principal)" },
+            { type: "text", content: " for the delay." }
+        ],
+        explanation: "The primary motive or explanation for something is the 'main reason'." 
+    },
+    { 
+        id: 8, 
+        parts: [
+            { type: "text", content: "Completing this safety training is " },
+            { type: "input", answer: "absolutely necessary" },
+            { type: "hint", content: "(absolutamente necesario)" },
+            { type: "text", content: " for all employees." }
+        ],
+        explanation: "Intensifiers like 'absolutely' go with adjectives like 'necessary'." 
+    },
+    { 
+        id: 9, 
+        parts: [
+            { type: "text", content: "The board members were " },
+            { type: "input", answer: "deeply concerned" },
+            { type: "hint", content: "(profundamente preocupados)" },
+            { type: "text", content: " about the company's bad performance." }
+        ],
+        explanation: "To express a strong level of worry, we use 'deeply concerned'." 
+    },
+    { 
+        id: 10, 
+        parts: [
+            { type: "text", content: "This marketing strategy has proven to be " },
+            { type: "input", answer: "highly effective" },
+            { type: "hint", content: "(altamente efectivo)" },
+            { type: "text", content: " in boosting sales." }
+        ],
+        explanation: "Degree modifiers like 'highly' go with adjectives like 'effective'." 
+    }
+];
+</script>
+<script src="../assets/js/fill-in-the-blanks.js"></script>
+</body>
+</html>

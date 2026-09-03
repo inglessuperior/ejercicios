@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pasado simple - 4</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <link rel="stylesheet" href="../assets/css/style-ejercicios.css?v=2">
+    <link rel="stylesheet" href="../assets/css/wordfind.css?v=2">
+    
+    <style>
+        /* Oculta la respuesta en texto plano para que el usuario la busque en la sopa de letras */
+        #words li .word {
+            display: none !important;
+        }
+        
+        #words {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+        }
+        
+        /* Estilo exacto con el tamaño de texto de pregunta (1.125rem / 18px) */
+        #words li.question-item {
+            display: flex;
+            align-items: center;
+            font-size: 1.125rem; 
+            color: #334155;
+            padding: 16px 0;
+            border-bottom: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+        
+        #words li.question-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Tacha y atenúa la pista automáticamente cuando el script encuentra la palabra */
+        #words li.question-item:has(input.word.wordFound) {
+            text-decoration: line-through;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+
+<header class="max-w-4xl mx-auto text-center">
+    <img src="../assets/img/logo.png" class="imagen1" alt="Logo de Inglés Superior" style="display: block; margin: 1rem auto;">
+    <p class="formula mx-auto p-0" style="width: 30%">MÓDULO: 4</p>
+    <h1 class="titulo1 mt-2 mb-8">Pasado simple</h1>
+</header>
+
+<main class="max-w-5xl mx-auto space-y-6" style="margin-bottom: 5rem;">
+    
+    <!-- Recuadro superior: Instrucciones generales -->
+    <section>
+        <div class="text-container">
+            <h2 class="titulo2 mb-2">Find the words</h2>
+            <p class="text-slate-600">Read the clues and find the correct words.</p>
+        </div>
+    </section>
+
+    <!-- Contenedor en dos columnas asimétricas -->
+    <section class="grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch">
+        
+        <!-- Columna Izquierda: Pistas -->
+        <div class="text-container md:col-span-5 flex flex-col justify-start" style="padding-top: 2.5rem; padding-bottom: 2.5rem;">
+            <div id="controls">
+                <ul id="words">
+                    <li class="question-item">
+                        <span style="font-weight: 700; margin-right: 10px; color: #0f172a;">1.</span>
+                        <span>Past of <strong style="color: #2563eb;">go</strong></span>
+                        <input class="word" value="went" />
+                    </li>
+                    <li class="question-item">
+                        <span style="font-weight: 700; margin-right: 10px; color: #0f172a;">2.</span>
+                        <span>Past of <strong style="color: #2563eb;">write</strong></span>
+                        <input class="word" value="wrote" />
+                    </li>
+                    <li class="question-item">
+                        <span style="font-weight: 700; margin-right: 10px; color: #0f172a;">3.</span>
+                        <span>Past of <strong style="color: #2563eb;">drink</strong></span>
+                        <input class="word" value="drank" />
+                    </li>
+                    <li class="question-item">
+                        <span style="font-weight: 700; margin-right: 10px; color: #0f172a;">4.</span>
+                        <span>Past of <strong style="color: #2563eb;">eat</strong></span>
+                        <input class="word" value="ate" />
+                    </li>
+                    <li class="question-item">
+                        <span style="font-weight: 700; margin-right: 10px; color: #0f172a;">5.</span>
+                        <span>Past of <strong style="color: #2563eb;">sleep</strong></span>
+                        <input class="word" value="slept" />
+                    </li>
+                    <li class="question-item">
+                        <span style="font-weight: 700; margin-right: 10px; color: #0f172a;">6.</span>
+                        <span>Past of <strong style="color: #2563eb;">bring</strong></span>
+                        <input class="word" value="brought" />
+                    </li>
+                    <li class="question-item">
+                        <span style="font-weight: 700; margin-right: 10px; color: #0f172a;">7.</span>
+                        <span>Past of <strong style="color: #2563eb;">buy</strong></span>
+                        <input class="word" value="bought" />
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Columna Derecha: Recuadro de la Sopa de Letras (12x12) -->
+        <div class="text-container puzzle-box text-center flex flex-col items-center justify-center md:col-span-7">
+            <div id="puzzle" class="my-2"></div>
+        </div>
+
+    </section>
+
+<div style="margin-bottom: 7rem;"></div>
+
+
+</main>
+
+<!-- jQuery y Librerías del juego -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="../assets/js/wordfind.js?v=2"></script>
+<script src="../assets/js/wordfindgame.js?v=2"></script>
+
+<script>
+    $(document).ready(function() {
+        try {
+            var game = new WordFindGame('#puzzle', {
+                height: 12, // <--- Cambia este 12 por 10
+                width: 12,  // <--- Cambia este 12 por 10
+                fillBlanks: true, // <--- Puedes cambiar a true si quieres que las palabras se empalmen más
+                preferOverlap: false
+            });
+
+            var confettiTriggered = false;
+            setInterval(function() {
+                var totalWords = $('#words li input').length;
+                var foundWords = $('#words .wordFound').length;
+                
+                if (totalWords > 0 && foundWords === totalWords) {
+                    $('#puzzle').addClass('complete');
+                    
+                    if (!confettiTriggered) {
+                        confetti({
+                            particleCount: 150,
+                            spread: 70,
+                            origin: { y: 0.6 }
+                        });
+                        confettiTriggered = true;
+                    }
+                }
+            }, 500);
+        } catch (e) {
+            console.log("Error al iniciar el juego: ", e);
+        }
+    });
+</script>
+</body>
+</html>

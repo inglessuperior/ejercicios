@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pasado perfecto - 1</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <!-- CSS externo -->
+    <link rel="stylesheet" href="../assets/css/style-ejercicios.css">
+</head>
+<body>
+<header class="max-w-4xl mx-auto text-center">
+    <img src="../assets/img/logo.png" class="imagen1" alt="Logo de Inglés Superior" style="display: block; margin: 1rem auto;">
+    <p class="formula mx-auto p-0" style="width: 30%">MÓDULO: 9</p>
+    <h1 class="titulo1 mt-2 mb-8">Pasado perfecto</h1>
+</header>
+<main class="max-w-4xl mx-auto">
+    <section class="mb-6">
+        <div class="text-container">
+            <h2 class="titulo2 mb-4">Choose the correct option</h2>
+            <p class="text-slate-600">Select the correct option to complete each sentence.</p>
+        </div>
+    </section>
+    <section id="results-section" class="hidden my-12">
+        <div id="results-card" class="text-container text-center border-0 shadow-lg bg-white space-y-3">
+            <div id="score-emoji" class="text-4xl">🚀</div>
+            <h2 class="titulo2 text-slate-800">Test completed!</h2>
+            <p id="score-text-container" class="text-xl font-bold text-slate-800">Correct answers: <span id="score-text">0/10</span></p>
+            <p id="score-percentage-container" class="text-xl font-bold text-slate-800">Your score is <span id="score-percentage">0%</span></p>
+        </div>
+    </section>
+    <section class="mb-6">
+        <div class="text-container">
+            <form id="quiz-form">
+                <div id="questions-container"></div>
+                <div class="check-btn-container mt-10 text-center">
+                    <button type="button" onclick="checkAnswers()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow transition duration-200">Check Answers</button>
+                    <button type="button" onclick="resetQuiz()" class="ml-4 bg-slate-500 hover:bg-slate-600 text-white font-bold py-3 px-6 rounded-lg shadow transition duration-200">Reset</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</main>
+
+<!-- ===== DATOS DEL EJERCICIO ===== -->
+<script>
+const data = [
+    {
+        textBefore: "When I arrived at the station, the train ",
+        textAfter: " already.",
+        options: ["had left", "has left", "left"],
+        correct: "had left",
+        explanation: "Use 'had' + past participle (leave → left). The train left BEFORE I arrived. Past perfect shows which action happened first."
+    },
+    {
+        textBefore: "Olga ",
+        textAfter: " anything like it before that day.",
+        options: ["had ever seen", "has never seen", "had never seen"],
+        correct: "had never seen",
+        explanation: "Use 'had' + past participle (see → seen). 'Before that day' is good context for a past perfect sentence."
+    },
+    {
+        textBefore: "They were hungry because they ",
+        textAfter: " anything since breakfast.",
+        options: ["hadn't eaten", "haven't eaten", "didn't eat"],
+        correct: "hadn't eaten",
+        explanation: "Use 'hadn't' + past participle (eat → eaten). We use 'since' to show the action started after breakfast and continued up to the moment they were hungry."
+    },
+    {
+        textBefore: "I ",
+        textAfter: " my homework when my mom called me for dinner.",
+        options: ["had ever finished", "had yet finished", "had already finished"],
+        correct: "had already finished",
+        explanation: "Use 'had' + past participle (finish → finished). The homework was finished BEFORE the mom called."
+    },
+    {
+        textBefore: "When we got to the party, everyone ",
+        textAfter: " home.",
+        options: ["had gone", "has gone", "have gone"],
+        correct: "had gone",
+        explanation: "Use 'had' + past participle (go → gone). Everyone left BEFORE we got there."
+    },
+    {
+        textBefore: "Marcus realized he ",
+        textAfter: " his wallet at the restaurant after he got home.",
+        options: ["has left", "had left", "have left"],
+        correct: "had left",
+        explanation: "Use 'had' + past participle (leave → left). He left it BEFORE he realized (after he got home)."
+    },
+    {
+        textBefore: "By the time she arrived at the airport, her flight ",
+        textAfter: " .",
+        options: ["had took off", "had taken off", "had taking off"],
+        correct: "had taken off",
+        explanation: "Use 'had' + past participle (taken). The flight took off BEFORE she arrived."
+    },
+    {
+        textBefore: "They ",
+        textAfter: " the owner of the bar until that night.",
+        options: ["hadn't never met", "have never met", "had never met"],
+        correct: "had never met",
+        explanation: "Use 'had' + never + past participle (meet → met). The never meeting happened BEFORE that night."
+    },
+    {
+        textBefore: "The doctor told him on Monday to drink more water, so by Tuesday afternoon he ",
+        textAfter: " 10 glasses of water.",
+        options: ["had drank", "had drunk", "had drunken"],
+        correct: "had drunk",
+        explanation: "Use 'had' + past participle (drink → drunk). He drank the water BEFORE Tuesday afternoon."
+    },
+    {
+        textBefore: "Jill ",
+        textAfter: " herself once before, so she knew exactly what to do when it happened again.",
+        options: ["had burned", "had burn", "had burnned"],
+        correct: "had burned",
+        explanation: "Use 'had' + past participle (burn → burned). The first burn happened BEFORE the second one."
+    },
+];
+</script>
+
+<!-- JavaScript externo (multiple-choice.js) -->
+<script src="../assets/js/multiple-choice.js"></script>
+
+</body>
+</html>

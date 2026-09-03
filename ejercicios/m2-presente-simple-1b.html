@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presente simple - 1b</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <link rel="stylesheet" href="../assets/css/style-ejercicios.css">
+</head>
+<body>
+<header class="max-w-4xl mx-auto text-center">
+    <img src="../assets/img/logo.png" class="imagen1" alt="Logo de Inglés Superior" style="display: block; margin: 1rem auto;">
+
+    <p class="formula mx-auto p-0" style="width: 30%">MÓDULO: 2</p>
+    <h1 class="titulo1 mt-2 mb-8">Presente simple</h1>
+</header>
+<main class="max-w-4xl mx-auto">
+    <section class="mb-6">
+        <div class="text-container">
+            <h2 class="titulo2 mb-4">Choose the correct option</h2>
+            <p class="text-slate-600">Select the correct option to complete each sentence.</p>
+        </div>
+    </section>
+    <section id="results-section" class="hidden my-12">
+        <div id="results-card" class="text-container text-center border-0 shadow-lg bg-white space-y-3">
+            <div id="score-emoji" class="text-4xl">🚀</div>
+            <h2 class="titulo2 text-slate-800">Test completed!</h2>
+            <p id="score-text-container" class="text-xl font-bold text-slate-800">Correct answers: <span id="score-text">0/10</span></p>
+            <p id="score-percentage-container" class="text-xl font-bold text-slate-800">Your score is <span id="score-percentage">0%</span></p>
+        </div>
+    </section>
+    <section class="mb-6">
+        <div class="text-container">
+            <form id="quiz-form">
+                <div id="questions-container"></div>
+                <div class="check-btn-container mt-10 text-center">
+                    <button type="button" onclick="checkAnswers()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow transition duration-200">Check Answers</button>
+                    <button type="button" onclick="resetQuiz()" class="ml-4 bg-slate-500 hover:bg-slate-600 text-white font-bold py-3 px-6 rounded-lg shadow transition duration-200">Reset</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</main>
+<script>
+const data = [
+    {
+        textBefore: "My sister ",
+        textAfter: " coffee every morning before work.",
+        options: ["drink", "drinks", "drinking"],
+        correct: "drinks",
+        explanation: "For positive sentences with 'she' ('my sister' = 'she'), we add -s to the base verb (drinks)."
+    },
+    {
+        textBefore: "We ",
+        textAfter: " live near the downtown area.",
+        options: ["don't", "doesn't", "aren't"],
+        correct: "don't",
+        explanation: "We use 'don't' (do not) to form negative sentences with 'we'."
+    },
+    {
+        textBefore: "",
+        textAfter: " your friends like playing video games?",
+        options: ["Does", "Are", "Do"],
+        correct: "Do",
+        explanation: "Questions with plural subjects like 'your friends' ('they') require the auxiliary verb 'do'."
+    },
+    {
+        textBefore: "The train to Chicago ",
+        textAfter: " at 8:00 AM every day.",
+        options: ["leave", "leaves", "leaving"],
+        correct: "leaves",
+        explanation: "For third person singular subjects ('the train' = 'it'), we add an -s at the end (leaves)."
+    },
+    {
+        textBefore: "Maddy ",
+        textAfter: " meat because she is a vegan.",
+        options: ["don't eats", "don't eat", "doesn't eat"],
+        correct: "doesn't eat",
+        explanation: "After auxiliary 'doesn't', we use the verb in its base form without -s (eat)."
+    },
+    {
+        textBefore: "How often ",
+        textAfter: " you go out with your friends?",
+        options: ["do", "does", "are"],
+        correct: "do",
+        explanation: "Wh- questions with the subject 'you' use the auxiliary verb 'do' (How often do you...?)."
+    },
+    {
+        textBefore: "My brother ",
+        textAfter: " the guitar in a local band.",
+        options: ["play", "plays", "playes"],
+        correct: "plays",
+        explanation: "Subjects like 'my brother' ('he') require the -s (plays)."
+    },
+    {
+        textBefore: "We ",
+        textAfter: " English all the time.",
+        options: ["practices", "practicing", "practice"],
+        correct: "practice",
+        explanation: "For plural subjects like 'we', we don't add the -s to the verb."
+    },
+    {
+        textBefore: "What time ",
+        textAfter: " the bank open on Saturdays?",
+        options: ["do", "does", "is"],
+        correct: "does",
+        explanation: "Use the auxiliary 'does' for questions with singular subjects like 'the bank' ('it')."
+    },
+    {
+        textBefore: "They ",
+        textAfter: " dinner together at 7:00 PM every night.",
+        options: ["has", "have", "haves"],
+        correct: "have",
+        explanation: "For plural subjects like 'they', we don't add the -s to the verb."
+    }
+];
+</script>
+<script src="../assets/js/multiple-choice.js"></script>
+</body>
+</html>

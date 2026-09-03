@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pasado simple - 1</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <link rel="stylesheet" href="../assets/css/style-ejercicios.css">
+</head>
+<body>
+<header class="max-w-4xl mx-auto text-center">
+    <img src="../assets/img/logo.png" class="imagen1" alt="Logo de Inglés Superior" style="display: block; margin: 1rem auto;">
+
+    <p class="formula mx-auto p-0" style="width: 30%">MÓDULO: 4</p>
+    <h1 class="titulo1 mt-2 mb-8">Pasado simple</h1>
+</header>
+<main class="max-w-4xl mx-auto">
+    <section class="mb-6">
+        <div class="text-container">
+            <h2 class="titulo2 mb-4">Choose the correct option</h2>
+            <p class="text-slate-600">Select the correct option to complete each sentence.</p>
+        </div>
+    </section>
+    <section id="results-section" class="hidden my-12">
+        <div id="results-card" class="text-container text-center border-0 shadow-lg bg-white space-y-3">
+            <div id="score-emoji" class="text-4xl">🚀</div>
+            <h2 class="titulo2 text-slate-800">Test completed!</h2>
+            <p id="score-text-container" class="text-xl font-bold text-slate-800">Correct answers: <span id="score-text">0/10</span></p>
+            <p id="score-percentage-container" class="text-xl font-bold text-slate-800">Your score is <span id="score-percentage">0%</span></p>
+        </div>
+    </section>
+    <section class="mb-6">
+        <div class="text-container">
+            <form id="quiz-form">
+                <div id="questions-container"></div>
+                <div class="check-btn-container mt-10 text-center">
+                    <button type="button" onclick="checkAnswers()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow transition duration-200">Check Answers</button>
+                    <button type="button" onclick="resetQuiz()" class="ml-4 bg-slate-500 hover:bg-slate-600 text-white font-bold py-3 px-6 rounded-lg shadow transition duration-200">Reset</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</main>
+<script>
+const data = [
+    {
+        textBefore: "They ",
+        textAfter: " the whole apartment last Saturday.",
+        options: ["clean", "cleaned", "did clean"],
+        correct: "cleaned",
+        explanation: "For regular verbs in simple past, add -ed to the base form of the verb (clean → cleaned)."
+    },
+    {
+        textBefore: "My brother and I ",
+        textAfter: " at the soccer game yesterday afternoon.",
+        options: ["were", "was", "are"],
+        correct: "were",
+        explanation: "Use 'were' for plural subjects like 'we' (my brother and I = we) in simple past."
+    },
+    {
+        textBefore: "She ",
+        textAfter: " her laptop to work yesterday.",
+        options: ["didn't brought", "didn't bringed", "didn't bring"],
+        correct: "didn't bring",
+        explanation: "In negative simple past sentences, use the auxiliary 'didn't' followed by the verb in its base form (didn't bring)."
+    },
+    {
+        textBefore: "",
+        textAfter: " you complete the sales report this morning?",
+        options: ["Do", "Did", "Were"],
+        correct: "Did",
+        explanation: "Questions about past action verbs begin with the auxiliary 'did' for all subjects."
+    },
+    {
+        textBefore: "Mr. Davis ",
+        textAfter: " an email to the entire staff yesterday.",
+        options: ["sent", "send", "sended"],
+        correct: "sent",
+        explanation: "'Send' is an irregular verb. Its simple past form is 'sent'."
+    },
+    {
+        textBefore: "He ",
+        textAfter: " smoking last year.",
+        options: ["did stop", "stoped", "stopped"],
+        correct: "stopped",
+        explanation: "'Stop' is a regular veb (cvc), add -ed to the base form and duplicate the last consonant (stop → stopped)."
+    },
+    {
+        textBefore: "",
+        textAfter: " your manager in the conference room an hour ago?",
+        options: ["Was", "Were", "Did"],
+        correct: "Was",
+        explanation: "Use 'was' to start simple past questions with singular subjects like 'your manager' (he/she)."
+    },
+    {
+        textBefore: "I ",
+        textAfter: " a great documentary about space last night.",
+        options: ["seed", "saw", "see"],
+        correct: "saw",
+        explanation: "'See' is an irregular verb. Its simple past form is 'saw'."
+    },
+    {
+        textBefore: "The clients ",
+        textAfter: " satisfied with the product.",
+        options: ["wasn't", "didn't were", "weren't"],
+        correct: "weren't",
+        explanation: "We use 'wasn't' or 'weren't' for 'verb to be' negative sentences in simple past. For plural subjects ('clients'), use 'weren't'."
+    },
+    {
+        textBefore: "Where ",
+        textAfter: " you buy those new office chairs?",
+        options: ["were", "did", "do"],
+        correct: "did",
+        explanation: "Wh- questions asking about past actions require the auxiliary verb 'did' before the subject."
+    }
+];
+</script>
+<script src="../assets/js/multiple-choice.js"></script>
+</body>
+</html>

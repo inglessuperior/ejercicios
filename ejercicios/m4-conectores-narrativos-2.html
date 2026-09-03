@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conectores narrativos - 2</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Librería de Confeti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <link rel="stylesheet" href="../assets/css/style-ejercicios.css">
+</head>
+<body>
+
+<header class="max-w-4xl mx-auto text-center">
+    <img src="../assets/img/logo.png" class="imagen1" alt="Logo de Inglés Superior" style="display: block; margin: 1rem auto;">
+
+    <p class="formula mx-auto p-0" style="width: 30%">MÓDULO: 4</p>
+    <h1 class="titulo1 mt-2 mb-8">Conectores narrativos</h1>
+</header>
+
+<main class="max-w-4xl mx-auto">
+
+    <section class="mb-6">
+        <div class="text-container">
+            <h2 class="titulo2 mb-4">Drag and drop</h2>
+            <p class="text-slate-600">Drag the correct words from the word bank and drop them to complete each sentence.</p>
+        </div>
+    </section>
+
+    <section id="results-section" class="hidden my-12">
+        <div id="results-card" class="text-container text-center border-0 shadow-lg bg-white space-y-3">
+            <div id="score-emoji" class="text-4xl">🚀</div>
+            <h2 class="titulo2 text-slate-800">Test completed!</h2>
+            <p id="score-text-container" class="text-xl font-bold text-slate-600">Correct answers: <span id="score-text">0/10</span></p>
+            <p id="score-percentage-container" class="text-xl font-bold text-slate-600">Your score is <span id="score-percentage">0%</span></p>
+        </div>
+    </section>
+
+    <section class="mb-6">
+        <div class="text-container">
+            <div class="mb-6 p-3 bg-slate-50 border border-slate-200 rounded-xl">
+                <p class="text-xs font-bold text-slate-700 mb-2 text-center uppercase tracking-wider">Word Bank</p>
+                <div id="word-bank" class="flex flex-wrap gap-2 justify-center min-h-[50px] p-1">
+                </div>
+            </div>
+
+            <div id="sentences-container">
+            </div>
+
+            <div class="check-btn-container mt-8 text-center">
+                <button type="button" onclick="checkAnswers()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow transition duration-200">
+                    Check Answers
+                </button>
+                <button type="button" onclick="resetQuiz()" class="ml-4 bg-slate-500 hover:bg-slate-600 text-white font-bold py-3 px-6 rounded-lg shadow transition duration-200">
+                    Reset
+                </button>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script>
+const data = [
+  {
+    id: 1,
+    textBefore: "",
+    textAfter: ", let's review the rules of the game before we start playing.",
+    answer: "first",
+    explanation: "'First' introduces the absolute starting point of something."
+  },
+  {
+    id: 2,
+    textBefore: "Mark turned off all the lights, locked the door, and ",
+    textAfter: " walked to his car.",
+    answer: "then",
+    explanation: "When a sequence is linked with commas and 'and', 'then' fits right before the final action."
+  },
+  {
+    id: 3,
+    textBefore: "The company completed the app; ",
+    textAfter: ", they began the testing phase.",
+    answer: "after that",
+    explanation: "After a semicolon marking a distinct completed phase, 'after that' serves as the ideal transitional phrase."
+  },
+  {
+    id: 4,
+    textBefore: "After months of training and planning, they ",
+    textAfter: " climbed the mountain.",
+    answer: "finally",
+    explanation: "'Finally' is the only logical choice to highlight a long-awaited outcome after a lengthy process."
+  },
+  {
+    id: 5,
+    textBefore: "Lucas loves reading mystery novels ",
+    textAfter: " writing short stories in his free time.",
+    answer: "and",
+    explanation: "Use 'and' to connect two balanced hobbies without any sequence or contrast."
+  },
+  {
+    id: 6,
+    textBefore: "Should we order pizza ",
+    textAfter: " would you prefer sushi for dinner?",
+    answer: "or",
+    explanation: "'Or' is exclusively required here to present an alternative choice in a question."
+  },
+  {
+    id: 7,
+    textBefore: "The children were tired after the trip, ",
+    textAfter: " none of them wanted to go to sleep early.",
+    answer: "but",
+    explanation: "'But' is required to show the unexpected contrast between being tired and refusing to sleep."
+  },
+  {
+    id: 8,
+    textBefore: "All the flights were canceled because of the storm, ",
+    textAfter: " the passengers had to wait at the airport until the next morning.",
+    answer: "so",
+    explanation: "'So' is the correct word to connect the direct consequence of the canceled flights."
+  },
+  {
+    id: 9,
+    textBefore: "Daniel missed his morning alarm ",
+    textAfter: " he stayed up too late playing video games.",
+    answer: "because",
+    explanation: "'Because' is needed to introduce the direct reason behind an action."
+  },
+  {
+    id: 10,
+    textBefore: "Elena is a great pianist, and she ",
+    textAfter: " plays the acoustic guitar brilliantly.",
+    answer: "also",
+    explanation: "'Also' introduces additional information (her ability to play the guitar brilliantly)."
+  }
+];
+
+const distractors = [
+    { id: 11, text: "then" },
+    { id: 12, text: "but" },
+    { id: 13, text: "or" },
+    { id: 14, text: "so" },
+    { id: 15, text: "because" }
+];
+</script>
+<script src="../assets/js/drag-and-drop.js"></script>
+</body>
+</html>

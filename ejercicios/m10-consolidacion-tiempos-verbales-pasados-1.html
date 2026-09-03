@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consolidación de tiempos verbales - 1</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <link rel="stylesheet" href="../assets/css/style-ejercicios.css">
+</head>
+<body>
+<header class="max-w-4xl mx-auto text-center">
+    <img src="../assets/img/logo.png" class="imagen1" alt="Logo de Inglés Superior" style="display: block; margin: 1rem auto;">
+    <p class="formula mx-auto p-0" style="width: 30%">MÓDULO: 10</p>
+    <h1 class="titulo1 mt-2 mb-8">Pasado simple vs pasado continuo vs pasado perfecto</h1>
+</header>
+<main class="max-w-4xl mx-auto">
+    <section class="mb-6">
+        <div class="text-container">
+            <h2 class="titulo2 mb-4">Choose the correct option</h2>
+            <p class="text-slate-600">Select the correct option to complete each sentence.</p>
+        </div>
+    </section>
+    <section id="results-section" class="hidden my-12">
+        <div id="results-card" class="text-container text-center border-0 shadow-lg bg-white space-y-3">
+            <div id="score-emoji" class="text-4xl">🚀</div>
+            <h2 class="titulo2 text-slate-800">Test completed!</h2>
+            <p id="score-text-container" class="text-xl font-bold text-slate-800">Correct answers: <span id="score-text">0/10</span></p>
+            <p id="score-percentage-container" class="text-xl font-bold text-slate-800">Your score is <span id="score-percentage">0%</span></p>
+        </div>
+    </section>
+    <section class="mb-6">
+        <div class="text-container">
+            <form id="quiz-form">
+                <div id="questions-container"></div>
+                <div class="check-btn-container mt-10 text-center">
+                    <button type="button" onclick="checkAnswers()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow transition duration-200">Check Answers</button>
+                    <button type="button" onclick="resetQuiz()" class="ml-4 bg-slate-500 hover:bg-slate-600 text-white font-bold py-3 px-6 rounded-lg shadow transition duration-200">Reset</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</main>
+<script>
+const data = [
+    {
+        textBefore: "I ",
+        textAfter: " dinner when the power went out.",
+        options: ["cooked", "was cooking", "had cooked"],
+        correct: "was cooking",
+        explanation: "Use was/were + verb-ing for an action in progress that was interrupted by another action ('the power went out')."
+    },
+    {
+        textBefore: "When I arrived at the station, the train ",
+        textAfter: " already.",
+        options: ["left", "was leaving", "had left"],
+        correct: "had left",
+        explanation: "Use had + past participle (leave → left) for an action completed before another past action ('I arrived')."
+    },
+    {
+        textBefore: "She ",
+        textAfter: " to Paris three times before she finally moved there.",
+        options: ["traveled", "was traveling", "had traveled"],
+        correct: "had traveled",
+        explanation: "Use had + past participle (travel → traveled) for an action completed before another past action ('she finally moved there')."
+    },
+    {
+        textBefore: "While he ",
+        textAfter: " a shower, someone knocked on the door.",
+        options: ["took", "was taking", "had taken"],
+        correct: "was taking",
+        explanation: "Use was/were + verb-ing for an action in progress that was interrupted by another action ('someone knocked')."
+    },
+    {
+        textBefore: "They ",
+        textAfter: " the movie last night.",
+        options: ["watched", "were watching", "had watched"],
+        correct: "watched",
+        explanation: "Use the simple past for a completed action at a specific point in time ('last night'), with no other past action to relate it to."
+    },
+    {
+        textBefore: "By the time the guests arrived, we ",
+        textAfter: " cleaning the house.",
+        options: ["finished", "were finishing", "had finished"],
+        correct: "had finished",
+        explanation: "Use had + past participle (finish → finished) for an action completed before another past action ('the guests arrived')."
+    },
+    {
+        textBefore: "While I ",
+        textAfter: " to the radio, I heard my favorite song.",
+        options: ["listened", "was listening", "had listened"],
+        correct: "was listening",
+        explanation: "Use was/were + verb-ing for an action in progress ('while' introduces the background action) interrupted by another action ('I heard')."
+    },
+    {
+        textBefore: "He ",
+        textAfter: " his keys, so he couldn't get into the house.",
+        options: ["lost", "was losing", "had lost"],
+        correct: "had lost",
+        explanation: "Use had + past participle (lose → lost) because losing the keys happened before the result ('couldn't get into the house')."
+    },
+    {
+        textBefore: "We ",
+        textAfter: " on the beach all afternoon yesterday.",
+        options: ["relaxed", "were relaxing", "had relaxed"],
+        correct: "relaxed",
+        explanation: "Use the simple past for a completed action with a specific past time reference ('yesterday'), not related to another past event."
+    },
+    {
+        textBefore: "The children ",
+        textAfter: " in the garden when it started to rain.",
+        options: ["played", "were playing", "had played"],
+        correct: "were playing",
+        explanation: "Use was/were + verb-ing for an action in progress interrupted by another action ('it started to rain')."
+    }
+];
+</script>
+<script src="../assets/js/multiple-choice.js"></script>
+</body>
+</html>

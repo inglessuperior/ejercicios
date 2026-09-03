@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presente simple - 2</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Librería de Confeti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <link rel="stylesheet" href="../assets/css/style-ejercicios.css">
+</head>
+<body>
+
+<header class="max-w-4xl mx-auto text-center">
+    <img src="../assets/img/logo.png" class="imagen1" alt="Logo de Inglés Superior" style="display: block; margin: 1rem auto;">
+
+    <p class="formula mx-auto p-0" style="width: 30%">MÓDULO: 2</p>
+    <h1 class="titulo1 mt-2 mb-8">Presente simple</h1>
+</header>
+
+<main class="max-w-4xl mx-auto">
+
+    <section class="mb-6">
+        <div class="text-container">
+            <h2 class="titulo2 mb-4">Drag and drop</h2>
+            <p class="text-slate-600">Drag the correct words from the word bank and drop them to complete each sentence.</p>
+        </div>
+    </section>
+
+    <section id="results-section" class="hidden my-12">
+        <div id="results-card" class="text-container text-center border-0 shadow-lg bg-white space-y-3">
+            <div id="score-emoji" class="text-4xl">🚀</div>
+            <h2 class="titulo2 text-slate-800">Test completed!</h2>
+            <p id="score-text-container" class="text-xl font-bold text-slate-600">Correct answers: <span id="score-text">0/10</span></p>
+            <p id="score-percentage-container" class="text-xl font-bold text-slate-600">Your score is <span id="score-percentage">0%</span></p>
+        </div>
+    </section>
+
+    <section class="mb-6">
+        <div class="text-container">
+            <div class="mb-6 p-3 bg-slate-50 border border-slate-200 rounded-xl">
+                <p class="text-xs font-bold text-slate-700 mb-2 text-center uppercase tracking-wider">Word Bank</p>
+                <div id="word-bank" class="flex flex-wrap gap-2 justify-center min-h-[50px] p-1">
+                </div>
+            </div>
+
+            <div id="sentences-container">
+            </div>
+
+            <div class="check-btn-container mt-8 text-center">
+                <button type="button" onclick="checkAnswers()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow transition duration-200">
+                    Check Answers
+                </button>
+                <button type="button" onclick="resetQuiz()" class="ml-4 bg-slate-500 hover:bg-slate-600 text-white font-bold py-3 px-6 rounded-lg shadow transition duration-200">
+                    Reset
+                </button>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script>
+const data = [
+  {
+    id: 1,
+    textBefore: "My younger sister ",
+    textAfter: " animals in her notebook.",
+    answer: "draws",
+    explanation: "'My sister' = she, so the verb needs to end in '-s' ('draws')."
+  },
+  {
+    id: 2,
+    textBefore: "The local bakery ",
+    textAfter: " sweet bread every morning.",
+    answer: "bakes",
+    explanation: "'The local bakery' = 'it', so the verb needs to end in '-s' ('bakes')."
+  },
+  {
+    id: 3,
+    textBefore: "They ",
+    textAfter: " watch horror movies because they're too scary.",
+    answer: "don't",
+    explanation: "Plural subjects ('they') use 'don't' in negative sentences."
+  },
+  {
+    id: 4,
+    textBefore: "",
+    textAfter: " your neighbors travel often?",
+    answer: "Do",
+    explanation: "Questions with plural subjects ('your neighbors' = 'they') start with the auxiliary 'do'."
+  },
+  {
+    id: 5,
+    textBefore: "Our school library ",
+    textAfter: " many interesting books.",
+    answer: "has",
+    explanation: "'School library' = 'it', so the verb needs to end in '-s' ('has')."
+  },
+  {
+    id: 6,
+    textBefore: "He ",
+    textAfter: " listen to rock. He prefers pop.",
+    answer: "doesn't",
+    explanation: "Use 'doesn't' (does not) for negative sentences with 'he/she/it'."
+  },
+  {
+    id: 7,
+    textBefore: "",
+    textAfter: " Sofia practice the piano after school?",
+    answer: "Does",
+    explanation: "Questions with 'he/she/it' subjects start with the auxiliary 'does'."
+  },
+  {
+    id: 8,
+    textBefore: "We ",
+    textAfter: " video games with our cousins when they visit us.",
+    answer: "play",
+    explanation: "'We' uses the base form of the verb ('play')."
+  },
+  {
+    id: 9,
+    textBefore: "Athletes ",
+    textAfter: " hard every day to win games.",
+    answer: "train",
+    explanation: "Plural subjects ('athletes' = 'they') use the base form of the verb ('train')."
+  },
+  {
+    id: 10,
+    textBefore: "My uncle ",
+    textAfter: " a big truck for his job.",
+    answer: "drives",
+    explanation: "'My uncle' = 'he', so the verb needs to end in '-s' ('drives')."
+  }
+];
+
+const distractors = [
+    { id: 11, text: "draw" },
+    { id: 12, text: "bake" },
+    { id: 13, text: "don't" },
+    { id: 14, text: "Does" },
+    { id: 15, text: "have" }
+];
+</script>
+<script src="../assets/js/drag-and-drop.js"></script>
+</body>
+</html>
