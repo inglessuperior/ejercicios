@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verbo to be - 1</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <link rel="stylesheet" href="../assets/css/style-ejercicios.css">
+</head>
+<body>
+<header class="max-w-4xl mx-auto text-center">
+
+<img src="../assets/img/logo.png" class="imagen1" alt="Logo de Inglés Superior" style="display: block; margin: 1rem auto;">
+
+    <p class="formula mx-auto p-0" style="width: 30%">MÓDULO: 1</p>
+    <h1 class="titulo1 mt-2 mb-8">Verbo to be</h1>
+</header>
+<main class="max-w-4xl mx-auto">
+    <section class="mb-6">
+        <div class="text-container">
+            <h2 class="titulo2 mb-4">Choose the correct option</h2>
+            <p class="text-slate-600">Select the correct option to complete each sentence.</p>
+        </div>
+    </section>
+    <section id="results-section" class="hidden my-12">
+        <div id="results-card" class="text-container text-center border-0 shadow-lg bg-white space-y-3">
+            <div id="score-emoji" class="text-4xl">🚀</div>
+            <h2 class="titulo2 text-slate-800">Test completed!</h2>
+            <p id="score-text-container" class="text-xl font-bold text-slate-800">Correct answers: <span id="score-text">0/10</span></p>
+            <p id="score-percentage-container" class="text-xl font-bold text-slate-800">Your score is <span id="score-percentage">0%</span></p>
+        </div>
+    </section>
+    <section class="mb-6">
+        <div class="text-container">
+            <form id="quiz-form">
+                <div id="questions-container"></div>
+                <div class="check-btn-container mt-10 text-center">
+                    <button type="button" onclick="checkAnswers()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow transition duration-200">Check Answers</button>
+                    <button type="button" onclick="resetQuiz()" class="ml-4 bg-slate-500 hover:bg-slate-600 text-white font-bold py-3 px-6 rounded-lg shadow transition duration-200">Reset</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</main>
+<script>
+const data = [
+    {
+        textBefore: "I ",
+        textAfter: " hungry.",
+        options: ["am not", "isn't", "aren't"],
+        correct: "am not",
+        explanation: "With 'I', the negative form is 'am not'."
+    },
+    {
+        textBefore: "Amanda ",
+        textAfter: " here right now.",
+        options: ["am not", "isn't", "aren't"],
+        correct: "isn't",
+        explanation: "'She' + 'isn't'."
+    },
+    {
+        textBefore: "They ",
+        textAfter: " happy.",
+        options: ["am", "is", "are"],
+        correct: "are",
+        explanation: "'They' + 'are'."
+    },
+    {
+        textBefore: "",
+        textAfter: " you from Mexico?",
+        options: ["Am", "Is", "Are"],
+        correct: "Are",
+        explanation: "Questions with 'you' use 'are' before the subject: 'Are you...?'."
+    },
+    {
+        textBefore: "",
+        textAfter: " Eric your friend?",
+        options: ["Am", "Is", "Are"],
+        correct: "Is",
+        explanation: "Questions with 'he' use 'is' before the subject: 'Is he...?'."
+    },
+    {
+        textBefore: "It ",
+        textAfter: " cold today.",
+        options: ["am not", "isn't", "aren't"],
+        correct: "isn't",
+        explanation: "'It' + 'isn't'."
+    },
+    {
+        textBefore: "We ",
+        textAfter: " in the same class.",
+        options: ["am", "is", "are"],
+        correct: "are",
+        explanation: "'We' + 'are'."
+    },
+    {
+        textBefore: "",
+        textAfter: " I wrong?",
+        options: ["Am", "Is", "Are"],
+        correct: "Am",
+        explanation: "Questions with 'I' use 'am' before the subject: 'Am I...?'."
+    },
+    {
+        textBefore: "Carlos and Manuel ",
+        textAfter: " at work today.",
+        options: ["am not", "isn't", "aren't"],
+        correct: "aren't",
+        explanation: "'Carlos and Manuel' = 'they', so we use 'aren't'."
+    },
+    {
+        textBefore: "",
+        textAfter: " the children at the park?",
+        options: ["Am", "Is", "Are"],
+        correct: "Are",
+        explanation: "'The children' is plural ('they'), so questions use 'are': 'Are the children...?'."
+    }
+];
+</script>
+<script src="../assets/js/multiple-choice.js"></script>
+</body>
+</html>
