@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presente simple - 1c</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <link rel="stylesheet" href="../assets/css/style-ejercicios.css">
+</head>
+<body>
+<header class="max-w-4xl mx-auto text-center">
+
+<img src="../assets/img/logo.png" class="imagen1" alt="Logo de Inglés Superior" style="display: block; margin: 1rem auto;">
+
+    <p class="formula mx-auto p-0" style="width: 30%">MÓDULO: 2</p>
+    <h1 class="titulo1 mt-2 mb-8">Presente simple</h1>
+</header>
+<main class="max-w-4xl mx-auto">
+    <section class="mb-6">
+        <div class="text-container">
+            <h2 class="titulo2 mb-4">Choose the correct option</h2>
+            <p class="text-slate-600">Select the correct option to complete each sentence.</p>
+        </div>
+    </section>
+    <section id="results-section" class="hidden my-12">
+        <div id="results-card" class="text-container text-center border-0 shadow-lg bg-white space-y-3">
+            <div id="score-emoji" class="text-4xl">🚀</div>
+            <h2 class="titulo2 text-slate-800">Test completed!</h2>
+            <p id="score-text-container" class="text-xl font-bold text-slate-800">Correct answers: <span id="score-text">0/10</span></p>
+            <p id="score-percentage-container" class="text-xl font-bold text-slate-800">Your score is <span id="score-percentage">0%</span></p>
+        </div>
+    </section>
+    <section class="mb-6">
+        <div class="text-container">
+            <form id="quiz-form">
+                <div id="questions-container"></div>
+                <div class="check-btn-container mt-10 text-center">
+                    <button type="button" onclick="checkAnswers()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow transition duration-200">Check Answers</button>
+                    <button type="button" onclick="resetQuiz()" class="ml-4 bg-slate-500 hover:bg-slate-600 text-white font-bold py-3 px-6 rounded-lg shadow transition duration-200">Reset</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</main>
+<script>
+const data = [
+    {
+        textBefore: "My best friend ",
+        textAfter: " to work every morning.",
+        options: ["go", "goes", "gos"],
+        correct: "goes",
+        explanation: "Con sujetos en tercera persona singular ('my best friend' = 'he/she'), los verbos terminados en -o añaden -es (go → goes)."
+    },
+    {
+        textBefore: "She doesn't ",
+        textAfter: " horror movies at night.",
+        options: ["watch", "watches", "watching"],
+        correct: "watch",
+        explanation: "Después de 'doesn't', el verbo principal siempre va en forma base, sin -s (she doesn't watch)."
+    },
+    {
+        textBefore: "How many hours ",
+        textAfter: " a giraffe sleep every day?",
+        options: ["do", "does", "is"],
+        correct: "does",
+        explanation: "Aunque 'a giraffe' es un animal, es un sujeto singular ('it'), así que usamos 'does' para hacer la pregunta (does a giraffe sleep)."
+    },
+    {
+        textBefore: "My uncle ",
+        textAfter: " old clocks.",
+        options: ["fix", "fixs", "fixes"],
+        correct: "fixes",
+        explanation: "'My uncle' es un sujeto singular ('he'), y los verbos terminados en -x añaden -es (fix → fixes)."
+    },
+    {
+        textBefore: "My grandmother ",
+        textAfter: " cookies every weekend.",
+        options: ["bake", "bakes", "bakies"],
+        correct: "bakes",
+        explanation: "'My grandmother' es un sujeto singular ('she'), por lo que el verbo recibe -s (bake → bakes)."
+    },
+    {
+        textBefore: "Why does he ",
+        textAfter: " so loudly in the morning?",
+        options: ["sing", "sings", "singing"],
+        correct: "sing",
+        explanation: "En preguntas con 'does', el verbo principal va en forma base; el auxiliar ya lleva la -s (does he sing)."
+    },
+    {
+        textBefore: "My sister ",
+        textAfter: " her hair with cold water.",
+        options: ["wash", "washs", "washes"],
+        correct: "washes",
+        explanation: "Los verbos terminados en -sh añaden -es en tercera persona singular (wash → washes)."
+    },
+    {
+        textBefore: "My dog ",
+        textAfter: " at the mailman every morning.",
+        options: ["bark", "barks", "barking"],
+        correct: "barks",
+        explanation: "'My dog' es un sujeto singular ('it'), así que el verbo lleva -s (bark → barks)."
+    },
+    {
+        textBefore: "",
+        textAfter: " she always carry an umbrella?",
+        options: ["Do", "Does", "Is"],
+        correct: "Does",
+        explanation: "Con 'she' (tercera persona singular) usamos 'does' para formar preguntas; 'do' solo se usa con I/you/we/they."
+    },
+    {
+        textBefore: "My mom's neighbor ",
+        textAfter: " old coins.",
+        options: ["collect", "collects", "collecting"],
+        correct: "collects",
+        explanation: "'My mom's neighbor' (el vecino de mi mamá) es un sujeto singular ('he/she'), así que el verbo lleva -s (collect → collects)."
+    }
+];
+</script>
+<script src="../assets/js/multiple-choice.js"></script>
+</body>
+</html>
