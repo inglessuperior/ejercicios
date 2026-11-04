@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preposiciones adicionales de lugar - 1</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <link rel="stylesheet" href="../assets/css/style-ejercicios.css">
+</head>
+<body>
+<header class="max-w-4xl mx-auto text-center">
+
+<img src="../assets/img/logo.png" class="imagen1" alt="Logo de Inglés Superior" style="display: block; margin: 1rem auto;">
+
+    <p class="formula mx-auto p-0" style="width: 30%">MÓDULO: 2</p>
+    <h1 class="titulo1 mt-2 mb-8">Preposiciones adicionales de lugar</h1>
+</header>
+<main class="max-w-4xl mx-auto">
+    <section class="mb-6">
+        <div class="text-container">
+            <h2 class="titulo2 mb-4">Choose the correct option</h2>
+            <p class="text-slate-600">Select the correct option to complete each sentence.</p>
+        </div>
+    </section>
+    <section id="results-section" class="hidden my-12">
+        <div id="results-card" class="text-container text-center border-0 shadow-lg bg-white space-y-3">
+            <div id="score-emoji" class="text-4xl">🚀</div>
+            <h2 class="titulo2 text-slate-800">Test completed!</h2>
+            <p id="score-text-container" class="text-xl font-bold text-slate-800">Correct answers: <span id="score-text">0/10</span></p>
+            <p id="score-percentage-container" class="text-xl font-bold text-slate-800">Your score is <span id="score-percentage">0%</span></p>
+        </div>
+    </section>
+    <section class="mb-6">
+        <div class="text-container">
+            <form id="quiz-form">
+                <div id="questions-container"></div>
+                <div class="check-btn-container mt-10 text-center">
+                    <button type="button" onclick="checkAnswers()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow transition duration-200">Check Answers</button>
+                    <button type="button" onclick="resetQuiz()" class="ml-4 bg-slate-500 hover:bg-slate-600 text-white font-bold py-3 px-6 rounded-lg shadow transition duration-200">Reset</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</main>
+<script>
+const data = [
+    {
+        textBefore: "The submarine went ",
+        textAfter: " the surface of the water.",
+        options: ["near", "behind", "under"],
+        correct: "under",
+        explanation: "Usamos 'under' cuando algo pasa por debajo de otra cosa (under the surface)."
+    },
+    {
+        textBefore: "The remote control fell ",
+        textAfter: " the couch and now I can't reach it.",
+        options: ["between", "behind", "next to"],
+        correct: "behind",
+        explanation: "Usamos 'behind' cuando algo está detrás de otra cosa (behind the couch)."
+    },
+{
+    textBefore: "The bodyguard is standing ",
+    textAfter: " the VIP entrance.",
+    options: ["behind", "under", "in front of"],
+    correct: "in front of",
+    explanation: "Usamos 'in front of' cuando alguien está delante de un lugar (in front of the VIP entrance)."
+},
+    {
+        textBefore: "The new coffee shop is ",
+        textAfter: " the gym and the bookstore.",
+        options: ["between", "next to", "to"],
+        correct: "between",
+        explanation: "Usamos 'between' cuando algo está en medio de dos cosas (between the gym and the bookstore)."
+    },
+    {
+        textBefore: "She put her phone ",
+        textAfter: " her plate at the restaurant.",
+        options: ["next to", "between", "under"],
+        correct: "next to",
+        explanation: "Usamos 'next to' cuando algo está al lado de otra cosa (next to her plate)."
+    },
+    {
+        textBefore: "We live ",
+        textAfter: " the airport, so we hear planes all day.",
+        options: ["to", "under", "near"],
+        correct: "near",
+        explanation: "Usamos 'near' cuando algo está cerca de un lugar (near the airport)."
+    },
+    {
+        textBefore: "The bus goes ",
+        textAfter: " every morning.",
+        options: ["from Austin to Houston", "between Austin and Houston", "next to Austin and Houston"],
+        correct: "from Austin to Houston",
+        explanation: "Usamos 'from ... to' para indicar el punto de inicio y el final de un trayecto (from Austin to Houston)."
+    },
+    {
+        textBefore: "The sun disappeared ",
+        textAfter: " the clouds.",
+        options: ["next to", "behind", "from"],
+        correct: "behind",
+        explanation: "Usamos 'behind' cuando algo queda oculto detrás de otra cosa (behind the clouds)."
+    },
+    {
+        textBefore: "There's an alley ",
+        textAfter: " the restaurant and the bank.",
+        options: ["near", "in front of", "between"],
+        correct: "between",
+        explanation: "Usamos 'between' cuando algo está en medio de dos lugares (between the restaurant and the bank)."
+    },
+    {
+        textBefore: "She's sitting ",
+        textAfter: " me, so we can talk easily.",
+        options: ["under", "between", "next to"],
+        correct: "next to",
+        explanation: "Usamos 'next to' cuando alguien está al lado de otra persona (next to me)."
+    }
+];
+
+</script>
+<script src="../assets/js/multiple-choice.js"></script>
+</body>
+</html>

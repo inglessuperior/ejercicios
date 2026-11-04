@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preposiciones adicionales de tiempo - 1</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <link rel="stylesheet" href="../assets/css/style-ejercicios.css">
+</head>
+<body>
+<header class="max-w-4xl mx-auto text-center">
+
+<img src="../assets/img/logo.png" class="imagen1" alt="Logo de Inglés Superior" style="display: block; margin: 1rem auto;">
+
+    <p class="formula mx-auto p-0" style="width: 30%">MÓDULO: 2</p>
+    <h1 class="titulo1 mt-2 mb-8">Preposiciones adicionales de tiempo</h1>
+</header>
+<main class="max-w-4xl mx-auto">
+    <section class="mb-6">
+        <div class="text-container">
+            <h2 class="titulo2 mb-4">Choose the correct option</h2>
+            <p class="text-slate-600">Select the correct option to complete each sentence.</p>
+        </div>
+    </section>
+    <section id="results-section" class="hidden my-12">
+        <div id="results-card" class="text-container text-center border-0 shadow-lg bg-white space-y-3">
+            <div id="score-emoji" class="text-4xl">🚀</div>
+            <h2 class="titulo2 text-slate-800">Test completed!</h2>
+            <p id="score-text-container" class="text-xl font-bold text-slate-800">Correct answers: <span id="score-text">0/10</span></p>
+            <p id="score-percentage-container" class="text-xl font-bold text-slate-800">Your score is <span id="score-percentage">0%</span></p>
+        </div>
+    </section>
+    <section class="mb-6">
+        <div class="text-container">
+            <form id="quiz-form">
+                <div id="questions-container"></div>
+                <div class="check-btn-container mt-10 text-center">
+                    <button type="button" onclick="checkAnswers()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow transition duration-200">Check Answers</button>
+                    <button type="button" onclick="resetQuiz()" class="ml-4 bg-slate-500 hover:bg-slate-600 text-white font-bold py-3 px-6 rounded-lg shadow transition duration-200">Reset</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</main>
+<script>
+const data = [
+    {
+        textBefore: "The email arrived ",
+        textAfter: " I left the office, so I didn't see it.",
+        options: ["before", "after", "until"],
+        correct: "after",
+        explanation: "Usamos 'after' cuando algo ocurre después de otra acción (after I left the office)."
+    },
+    {
+        textBefore: "The night guard sleeps ",
+        textAfter: " the day.",
+        options: ["during", "until", "around"],
+        correct: "during",
+        explanation: "Usamos 'during' para indicar que algo ocurre a lo largo de un período de tiempo (during the day)."
+    },
+    {
+        textBefore: "The bakery is open ",
+        textAfter: " on Saturdays.",
+        options: ["around 7 a.m. and 2 p.m.", "until 7 a.m. to 2 p.m.", "from 7 a.m. to 2 p.m."],
+        correct: "from 7 a.m. to 2 p.m.",
+        explanation: "Usamos 'from ... to' para indicar el inicio y el final de un rango de tiempo (from 7 a.m. to 2 p.m.)."
+    },
+    {
+        textBefore: "The kitchen is a mess ",
+        textAfter: " dinner, so we clean it.",
+        options: ["after", "before", "during"],
+        correct: "after",
+        explanation: "Usamos 'after' cuando algo ocurre después de otra acción (after dinner)."
+    },
+    {
+        textBefore: "The last train leaves ",
+        textAfter: " 6 p.m., so don't be late.",
+        options: ["until", "around", "during"],
+        correct: "around",
+        explanation: "Usamos 'around' para indicar una hora aproximada (around 6 p.m.)."
+    },
+    {
+        textBefore: "The kids played outside ",
+        textAfter: " it got dark.",
+        options: ["before", "around", "until"],
+        correct: "until",
+        explanation: "Usamos 'until' para indicar que una acción continúa hasta un momento específico (until it got dark)."
+    },
+    {
+        textBefore: "The museum was closed ",
+        textAfter: " the renovation, but we can visit it now.",
+        options: ["until", "during", "around"],
+        correct: "during",
+        explanation: "Usamos 'during' para indicar que algo ocurre a lo largo de un evento o período (during the renovation)."
+    },
+    {
+        textBefore: "She checked her phone ",
+        textAfter: " the movie, which annoyed the people around her.",
+        options: ["during", "before", "until"],
+        correct: "during",
+        explanation: "Usamos 'during' para indicar que algo ocurre a lo largo de un evento (during the movie)."
+    },
+    {
+        textBefore: "The bus that goes downtown runs ",
+        textAfter: " every day.",
+        options: ["from midnight to 5 a.m.", "until midnight to 5 a.m.", "during midnight to 5 a.m."],
+        correct: "from midnight to 5 a.m.",
+        explanation: "Usamos 'from ... to' para indicar el inicio y el final de un rango de tiempo (from midnight to 5 a.m.). 'Runs' aquí significa 'circula'."
+    },
+    {
+        textBefore: "We need to buy tickets ",
+        textAfter: " the show sells out.",
+        options: ["after", "before", "during"],
+        correct: "before",
+        explanation: "Usamos 'before' cuando algo ocurre antes de otra acción o momento (before the show sells out)."
+    }
+];
+
+</script>
+<script src="../assets/js/multiple-choice.js"></script>
+</body>
+</html>
